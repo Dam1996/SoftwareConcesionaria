@@ -154,6 +154,7 @@ public class AdministradorView extends javax.swing.JPanel {
         editarAutoLabel = new javax.swing.JLabel();
         guardarNuevoAutoLabel = new javax.swing.JLabel();
         automovilComboBox = new javax.swing.JComboBox<>();
+        cancelarAutoButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -617,6 +618,12 @@ public class AdministradorView extends javax.swing.JPanel {
                 .addGap(34, 34, 34))
         );
 
+        autoDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                autoDialogWindowClosing(evt);
+            }
+        });
+
         jLabel21.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel21.setText("Detalle de autos");
 
@@ -690,14 +697,23 @@ public class AdministradorView extends javax.swing.JPanel {
         });
 
         editarAutoLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        editarAutoLabel.setForeground(new java.awt.Color(255, 51, 51));
         editarAutoLabel.setText("Edita este Auto");
 
         guardarNuevoAutoLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        guardarNuevoAutoLabel.setForeground(new java.awt.Color(255, 51, 51));
         guardarNuevoAutoLabel.setText("Guarda un nuevo Auto");
 
         automovilComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 automovilComboBoxActionPerformed(evt);
+            }
+        });
+
+        cancelarAutoButton.setText("Cancelar");
+        cancelarAutoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarAutoButtonActionPerformed(evt);
             }
         });
 
@@ -707,38 +723,46 @@ public class AdministradorView extends javax.swing.JPanel {
             autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(autoDialogLayout.createSequentialGroup()
                 .addContainerGap(581, Short.MAX_VALUE)
-                .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(autoDialogLayout.createSequentialGroup()
-                        .addComponent(telefonoLbl8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(automovilComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(autoDialogLayout.createSequentialGroup()
+                .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autoDialogLayout.createSequentialGroup()
+                        .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(autoDialogLayout.createSequentialGroup()
+                                .addComponent(telefonoLbl8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(automovilComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(autoDialogLayout.createSequentialGroup()
+                                .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(telefonoLbl7)
+                                    .addComponent(direccionLbl6))
+                                .addGap(85, 85, 85)
+                                .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(kmAutoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(precioAutoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(83, 83, 83))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autoDialogLayout.createSequentialGroup()
+                        .addComponent(guardarAutoBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(guardarEditarAutoBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cancelarAutoButton)
+                        .addGap(120, 120, 120))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autoDialogLayout.createSequentialGroup()
                         .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(telefonoLbl7)
-                            .addComponent(direccionLbl6))
-                        .addGap(85, 85, 85)
-                        .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(guardarAutoBtn)
-                                .addComponent(guardarEditarAutoBtn))
-                            .addComponent(kmAutoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(precioAutoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(83, 83, 83))
+                            .addComponent(guardarNuevoAutoLabel)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autoDialogLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(editarAutoLabel)
+                                .addGap(30, 30, 30)))
+                        .addGap(129, 129, 129))))
             .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(autoDialogLayout.createSequentialGroup()
+                    .addGap(130, 130, 130)
+                    .addComponent(agregarAutoBtn)
+                    .addGap(52, 52, 52)
+                    .addComponent(eliminarAutoBtn)
+                    .addGap(114, 585, Short.MAX_VALUE))
+                .addGroup(autoDialogLayout.createSequentialGroup()
                     .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(autoDialogLayout.createSequentialGroup()
-                            .addGap(130, 130, 130)
-                            .addComponent(agregarAutoBtn)
-                            .addGap(52, 52, 52)
-                            .addComponent(eliminarAutoBtn)
-                            .addGap(224, 224, 224)
-                            .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(guardarNuevoAutoLabel)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autoDialogLayout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(editarAutoLabel)
-                                    .addGap(30, 30, 30))))
                         .addGroup(autoDialogLayout.createSequentialGroup()
                             .addGap(183, 183, 183)
                             .addComponent(jLabel21))
@@ -762,7 +786,11 @@ public class AdministradorView extends javax.swing.JPanel {
         autoDialogLayout.setVerticalGroup(
             autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autoDialogLayout.createSequentialGroup()
-                .addContainerGap(301, Short.MAX_VALUE)
+                .addGap(101, 101, 101)
+                .addComponent(guardarNuevoAutoLabel)
+                .addGap(25, 25, 25)
+                .addComponent(editarAutoLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                 .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(automovilComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(telefonoLbl8))
@@ -774,22 +802,20 @@ public class AdministradorView extends javax.swing.JPanel {
                 .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(telefonoLbl7)
                     .addComponent(kmAutoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(guardarAutoBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(guardarEditarAutoBtn)
-                .addGap(27, 27, 27))
+                .addGap(39, 39, 39)
+                .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(guardarAutoBtn)
+                    .addComponent(guardarEditarAutoBtn)
+                    .addComponent(cancelarAutoButton))
+                .addGap(40, 40, 40))
             .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(autoDialogLayout.createSequentialGroup()
                     .addGap(48, 48, 48)
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(guardarNuevoAutoLabel)
-                    .addGap(25, 25, 25)
+                    .addGap(53, 53, 53)
                     .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(autoDialogLayout.createSequentialGroup()
-                            .addComponent(editarAutoLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(0, 0, Short.MAX_VALUE)
                             .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autoDialogLayout.createSequentialGroup()
                                     .addComponent(nombreLbl5)
@@ -1126,10 +1152,12 @@ public class AdministradorView extends javax.swing.JPanel {
         jLabel9.setText("Nombre:");
 
         editarMarcaLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        editarMarcaLabel.setForeground(new java.awt.Color(255, 51, 51));
         editarMarcaLabel.setText("Edita esta Marca");
 
         guardarNuevaMarcaLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        guardarNuevaMarcaLabel.setText("Guarda una nueva Marca");
+        guardarNuevaMarcaLabel.setForeground(new java.awt.Color(255, 51, 51));
+        guardarNuevaMarcaLabel.setText("Guarda nueva Marca");
 
         javax.swing.GroupLayout marcaPanelLayout = new javax.swing.GroupLayout(marcaPanel);
         marcaPanel.setLayout(marcaPanelLayout);
@@ -1145,33 +1173,28 @@ public class AdministradorView extends javax.swing.JPanel {
                         .addComponent(agregarMarcaBtn)
                         .addGap(78, 78, 78)
                         .addComponent(eliminarMarcaBtn)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                 .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, marcaPanelLayout.createSequentialGroup()
-                        .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(guardarNuevaMarcaLabel)
-                            .addGroup(marcaPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(39, 39, 39)
-                                .addComponent(nombreMarcaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(marcaPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(paisDeOrigenTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(80, 80, 80))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, marcaPanelLayout.createSequentialGroup()
-                        .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(guardarAgregarNuevaMarcaBtn)
-                            .addComponent(guardarEditarMarcaBtn))
-                        .addGap(134, 134, 134))))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel9))
+                .addGap(18, 18, 18)
+                .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nombreMarcaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(paisDeOrigenTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(guardarAgregarNuevaMarcaBtn)
+                        .addComponent(guardarEditarMarcaBtn)))
+                .addGap(80, 80, 80))
             .addGroup(marcaPanelLayout.createSequentialGroup()
                 .addGap(322, 322, 322)
                 .addComponent(jLabel12)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, marcaPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(editarMarcaLabel)
-                .addGap(110, 110, 110))
+                .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(guardarNuevaMarcaLabel)
+                    .addComponent(editarMarcaLabel))
+                .addGap(78, 78, 78))
         );
         marcaPanelLayout.setVerticalGroup(
             marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1190,18 +1213,19 @@ public class AdministradorView extends javax.swing.JPanel {
                 .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(marcaPanelLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
                         .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(nombreMarcaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
-                        .addGap(26, 26, 26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(paisDeOrigenTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
+                        .addGap(18, 18, 18)
                         .addComponent(guardarAgregarNuevaMarcaBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(guardarEditarMarcaBtn)))
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
 
         cerrarSesionButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -2064,15 +2088,10 @@ public class AdministradorView extends javax.swing.JPanel {
     private void eliminarAutoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarAutoBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_eliminarAutoBtnActionPerformed
-
+    
     private void agregarAutoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarAutoBtnActionPerformed
-        //Limpio la tabla
+        //Limpio datos de los campos
         autoTable.clearSelection();
-        //Limpio los datos
-        numChasisAutoTxt.setText(null);
-        patenteAutoTxt.setText(null);
-        precioAutoTxt.setText(null);
-        kmAutoTxt.setText(null);
         //Desactivo boton y label de editar
         guardarEditarAutoBtn.setVisible(false);
         editarAutoLabel.setVisible(false);
@@ -2090,8 +2109,15 @@ public class AdministradorView extends javax.swing.JPanel {
         numChasisAutoTxt.setText(modeloTablaAuto.getValueAt(filaSelected, 8).toString());
         patenteAutoTxt.setText(modeloTablaAuto.getValueAt(filaSelected, 1).toString());
         precioAutoTxt.setText(modeloTablaAuto.getValueAt(filaSelected, 3).toString());
-        automovilComboBox.getModel().setSelectedItem(modeloTablaAuto.getValueAt(filaSelected, 2));
-        kmAutoTxt.setText(modeloTablaAuto.getValueAt(filaSelected, 5).toString());
+        Automovil automovil= new Automovil();
+        Marca marca=new Marca();
+        marca.setNombre(modeloTablaAuto.getValueAt(filaSelected, 2).toString());
+        automovil.setMarca(marca);
+        automovil.setModelomarca(modeloTablaAuto.getValueAt(filaSelected, 5).toString());
+        automovil.setAniofabricacion( Integer.valueOf(modeloTablaAuto.getValueAt(filaSelected, 6).toString()));
+        automovil.setColor(modeloTablaAuto.getValueAt(filaSelected, 7).toString());
+        automovilComboBox.getModel().setSelectedItem(automovil);
+        kmAutoTxt.setText(modeloTablaAuto.getValueAt(filaSelected, 4).toString());
         // Prendo los botones de tabla
         guardarEditarAutoBtn.setVisible(true);
         eliminarAutoBtn.setEnabled(true);
@@ -2147,8 +2173,16 @@ public class AdministradorView extends javax.swing.JPanel {
     private void automovilComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_automovilComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_automovilComboBoxActionPerformed
-//Metodos de carga de entidades(Listas) Para la tabla
 
+    private void autoDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_autoDialogWindowClosing
+        autoTable.clearSelection();
+    }//GEN-LAST:event_autoDialogWindowClosing
+
+    private void cancelarAutoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarAutoButtonActionPerformed
+       //Limpio datos de los campos
+        autoTable.clearSelection();
+    }//GEN-LAST:event_cancelarAutoButtonActionPerformed
+//Metodos de carga de entidades(Listas) Para la tabla
     private void cargarMarcas() {
         DefaultTableModel modeloTablaMarca = (DefaultTableModel) marcaTable.getModel();
         List<Marca> filasTablaMarca = marcaController.listarMarcas();
@@ -2249,6 +2283,7 @@ public class AdministradorView extends javax.swing.JPanel {
     private javax.swing.JButton autosBtn;
     private javax.swing.JButton cancelarAgregarNuevoClienteBtn;
     private javax.swing.JButton cancelarAgregarNuevoVendedorBtn;
+    private javax.swing.JButton cancelarAutoButton;
     private javax.swing.JButton cerrarSesionButton;
     private javax.swing.JTextField ciudadClienteTxt;
     private javax.swing.JLabel ciudadLbl3;
