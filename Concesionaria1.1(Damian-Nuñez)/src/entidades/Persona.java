@@ -198,6 +198,11 @@ public class Persona  implements java.io.Serializable {
         this.clientes = clientes;
     }
 
+    @Override
+    public String toString() {
+        return  nombre + "," + apellido;
+    }
+
 
 
 

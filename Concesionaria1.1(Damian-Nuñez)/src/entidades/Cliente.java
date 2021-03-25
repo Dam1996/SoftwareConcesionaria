@@ -39,7 +39,7 @@ public class Cliente  implements java.io.Serializable {
     private Date fechaalta;
     @Column(name = "email", nullable = false, length = 30)
     private String email;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "vendedor")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
     private Set<Venta> ventas = new HashSet<Venta>(0);
 
     public Cliente() {
@@ -71,12 +71,6 @@ public class Cliente  implements java.io.Serializable {
         this.email = email;
     }
 
-  
-   
-//     @Id 
-//
-//    
-//    @Column(name="clienteid", unique=true, nullable=false)
     public int getClienteid() {
         return this.clienteid;
     }
@@ -85,8 +79,6 @@ public class Cliente  implements java.io.Serializable {
         this.clienteid = clienteid;
     }
 
-//@ManyToOne(fetch=FetchType.LAZY)
-//    @JoinColumn(name="persona_id", nullable=false)
     public Persona getPersona() {
         return this.persona;
     }
@@ -96,7 +88,7 @@ public class Cliente  implements java.io.Serializable {
     }
 
     
-    @Column(name="fechaalta", nullable=false, length=13)
+//    @Column(name="fechaalta", nullable=false, length=13)
     public Date getFechaalta() {
         return this.fechaalta;
     }
@@ -105,8 +97,6 @@ public class Cliente  implements java.io.Serializable {
         this.fechaalta = fechaalta;
     }
 
-    
-//    @Column(name="email", nullable=false, length=30)
     public String getEmail() {
         return this.email;
     }
@@ -115,7 +105,6 @@ public class Cliente  implements java.io.Serializable {
         this.email = email;
     }
 
-//@OneToMany(fetch=FetchType.LAZY, mappedBy="cliente")
     public Set<Venta> getVentas() {
         return this.ventas;
     }
@@ -124,9 +113,10 @@ public class Cliente  implements java.io.Serializable {
         this.ventas = ventas;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return persona.getNombre() + " " + persona.getApellido();
+    }
 }
 
 

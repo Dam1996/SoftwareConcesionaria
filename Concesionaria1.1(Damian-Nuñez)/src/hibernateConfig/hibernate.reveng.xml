@@ -50,4 +50,5 @@ Contributor(s):
   <table-filter match-name="automovil"/>
   <table-filter match-name="vendedor"/>
   <table-filter match-name="persona"/>
+  <table-filter match-name="ventadetalle"/>
 </hibernate-reverse-engineering>

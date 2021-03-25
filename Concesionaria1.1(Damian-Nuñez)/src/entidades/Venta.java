@@ -44,12 +44,29 @@ public class Venta  implements java.io.Serializable {
      private Double montototal;
 @Column(name="cantcuotas", nullable=false)
      private int cantcuotas;
-@Column(name="estado", length=30)
-     private String estado;
 @OneToMany(fetch=FetchType.LAZY, mappedBy="venta")
      private Set<Pago> pagos = new HashSet<Pago>(0);
+@OneToMany(fetch=FetchType.LAZY, mappedBy="venta")
+     private Set<DetalleVenta> ventaDetalle = new HashSet<DetalleVenta>(0);
 
     public Venta() {
+    }
+
+    public Venta(long ventaid, Cliente cliente, Vendedor vendedor, Date fechaventa, Double montototal, int cantcuotas) {
+        this.ventaid = ventaid;
+        this.cliente = cliente;
+        this.vendedor = vendedor;
+        this.fechaventa = fechaventa;
+        this.montototal = montototal;
+        this.cantcuotas = cantcuotas;
+    }
+
+    public Set<DetalleVenta> getVentaDetalle() {
+        return ventaDetalle;
+    }
+
+    public void setVentaDetalle(Set<DetalleVenta> ventaDetalle) {
+        this.ventaDetalle = ventaDetalle;
     }
 
 	
@@ -60,15 +77,22 @@ public class Venta  implements java.io.Serializable {
         this.fechaventa = fechaventa;
         this.cantcuotas = cantcuotas;
     }
-    public Venta(int ventaid, Cliente cliente, Vendedor vendedor, Date fechaventa, Double montototal, int cantcuotas, String estado, Set<Pago> pagos) {
+    public Venta(long ventaid, Cliente cliente, Vendedor vendedor, Date fechaventa, Double montototal, int cantcuotas, Set<Pago> pagos) {
        this.ventaid = ventaid;
        this.cliente = cliente;
        this.vendedor = vendedor;
        this.fechaventa = fechaventa;
        this.montototal = montototal;
        this.cantcuotas = cantcuotas;
-       this.estado = estado;
        this.pagos = pagos;
+    }
+
+    public Venta(Cliente cliente, Vendedor vendedor, Date fechaventa, Double montototal, int cantcuotas) {
+        this.cliente = cliente;
+        this.vendedor = vendedor;
+        this.fechaventa = fechaventa;
+        this.montototal = montototal;
+        this.cantcuotas = cantcuotas;
     }
    
     public long getVentaid() {
@@ -121,14 +145,7 @@ public class Venta  implements java.io.Serializable {
         this.cantcuotas = cantcuotas;
     }
 
-    
-    public String getEstado() {
-        return this.estado;
-    }
-    
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
+
 
     public Set<Pago> getPagos() {
         return this.pagos;
@@ -137,10 +154,6 @@ public class Venta  implements java.io.Serializable {
     public void setPagos(Set<Pago> pagos) {
         this.pagos = pagos;
     }
-
-
-
-
 }
 
 

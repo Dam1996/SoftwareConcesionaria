@@ -118,9 +118,11 @@ public class Vendedor  implements java.io.Serializable {
         this.ventas = ventas;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return persona.getNombre() + " " + persona.getApellido();
+    }
+    
 }
 
 

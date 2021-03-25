@@ -46,14 +46,14 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/concesionaria</property>
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">root</property>
-    <mapping class="entidades.Marca"/>
+    <mapping class="entidades.Modelo"/>
     <mapping class="entidades.Automovil"/>
-    <mapping class="entidades.Auto"/>
     <mapping class="entidades.Cliente"/>
     <mapping class="entidades.Pago"/>
     <mapping class="entidades.Persona"/>
     <mapping class="entidades.Usuario"/>
     <mapping class="entidades.Vendedor"/>
     <mapping class="entidades.Venta"/>
+    <mapping class="entidades.DetalleVenta"/>
   </session-factory>
 </hibernate-configuration>

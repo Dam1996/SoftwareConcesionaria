@@ -1,17 +1,19 @@
 package vistas;
 
-import controlador.AutoController;
 import controlador.AutomovilController;
 import controlador.ClienteController;
-import controlador.MarcaController;
+import controlador.DetalleVentaController;
+import controlador.ModeloController;
 import controlador.PersonaController;
 import controlador.VendedorController;
-import entidades.Auto;
+import controlador.VentaController;
 import entidades.Automovil;
 import entidades.Cliente;
-import entidades.Marca;
+import entidades.DetalleVenta;
+import entidades.Modelo;
 import entidades.Persona;
 import entidades.Vendedor;
+import entidades.Venta;
 import java.awt.Dialog;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -35,40 +37,38 @@ import static jdk.nashorn.internal.runtime.Debug.id;
  */
 public class AdministradorView extends javax.swing.JPanel {
 
-    MarcaController marcaController = new MarcaController();
+    ModeloController modeloController = new ModeloController();
     ClienteController clienteController = new ClienteController();
     PersonaController personaController = new PersonaController();
     VendedorController vendedorController = new VendedorController();
-    AutomovilController automovilController= new AutomovilController();
-    AutoController autoController= new AutoController();
+    AutomovilController automovilController = new AutomovilController();
+    VentaController ventaController=new VentaController();
+    DetalleVentaController detalleVentaController= new DetalleVentaController();
 
     public AdministradorView() {
 
         initComponents();
-        // Cargo las tablas con los datos creados
-        cargarMarcas();
+// Cargo las tablas con los datos creados
+        cargarModelo();
         cargarVendedor();
         cargarClientes();
         cargarAutomoviles();
-        cargarAutos();
-        // Inahabilito los botones de editar y borrar
-        inhabilitarBotonesMarca();
-        inhabilitarBotonesCliente();
-        inhabilitarBotonesVendedor();
-        inhabilitarBotonesAutomovil();
-        inhabilitarBotonesAuto();
+        cargarAutomovilesVenta();
+        cargarVentas();
+// Activo los labels y botones de alta en las ventanas de abm
+        activarGuardarModelo();
+        activarGuardarCliente();
+        activarGuardarVendedor();
+        activarGuardarAutomovil();
+        activarGuardarVenta();
         //Oculto los paneles que no estoy usando
         clientePanel.setVisible(false);
-        ventasBtn.setEnabled(false);
         vendedorPanel.setVisible(false);
-        marcaPanel.setVisible(false);
-        //Oculto label de editado que no uso
-        editarMarcaLabel.setVisible(false);
-        editarAutomovilLabel.setVisible(false);
-        editarAutoLabel.setVisible(false);
-        //Cargo combo box marca de la automovil
-        cargarComboBoxMarcaAutomovil();
-        cargarComboBoxAuto();
+        ventaPanel.setVisible(false);
+//Cargo combo box
+        cargarComboBoxModelo();
+        cargarComboBoxCliente();
+        cargarComboBoxVendedor();        
     }
 
     /**
@@ -80,798 +80,168 @@ public class AdministradorView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        clienteDialog = new javax.swing.JDialog(new javax.swing.JFrame(), true);
-        codigoPostalClienteTxt = new javax.swing.JTextField();
-        dniClienteTxt = new javax.swing.JTextField();
-        apellidoClienteTxt = new javax.swing.JTextField();
-        nombreClienteTxt = new javax.swing.JTextField();
-        apellidoLbl1 = new javax.swing.JLabel();
-        dniLbl1 = new javax.swing.JLabel();
-        codpostalbl1 = new javax.swing.JLabel();
-        nombreLbl1 = new javax.swing.JLabel();
-        fechaAltaClienteDate = new com.toedter.calendar.JDateChooser();
-        fechaNacimientoClienteDate = new com.toedter.calendar.JDateChooser();
-        ciudadClienteTxt = new javax.swing.JTextField();
-        direccionClienteTxt = new javax.swing.JTextField();
-        telefonoClienteTxt = new javax.swing.JTextField();
-        fechaAltaLbl3 = new javax.swing.JLabel();
-        fechaNacimientoLbl3 = new javax.swing.JLabel();
-        ciudadLbl3 = new javax.swing.JLabel();
-        direccionLbl3 = new javax.swing.JLabel();
-        telefonoLbl3 = new javax.swing.JLabel();
-        agregarNuevoClienteLabel = new javax.swing.JLabel();
-        guardarAgregarNuevoClienteBtn = new javax.swing.JButton();
-        cancelarAgregarNuevoClienteBtn = new javax.swing.JButton();
-        emailClienteTxt = new javax.swing.JTextField();
-        nombreLbl4 = new javax.swing.JLabel();
-        guardarEditarClienteBtn = new javax.swing.JButton();
-        editarClienteLabel = new javax.swing.JLabel();
-        vendedorDialog = new javax.swing.JDialog(new javax.swing.JFrame(), true);
-        codigoPostalVendedorTxt = new javax.swing.JTextField();
-        dniVendedorTxt = new javax.swing.JTextField();
-        apellidoVendedorTxt = new javax.swing.JTextField();
-        nombreVendedorTxt = new javax.swing.JTextField();
-        apellidoLbl2 = new javax.swing.JLabel();
-        dniLbl2 = new javax.swing.JLabel();
-        codpostalbl2 = new javax.swing.JLabel();
-        nombreLbl2 = new javax.swing.JLabel();
-        fechaNacimientoVendedorDate = new com.toedter.calendar.JDateChooser();
-        ciudadVendedorTxt = new javax.swing.JTextField();
-        direccionVendedorTxt = new javax.swing.JTextField();
-        telefonoVendedorTxt = new javax.swing.JTextField();
-        fechaAltaLbl4 = new javax.swing.JLabel();
-        fechaNacimientoLbl4 = new javax.swing.JLabel();
-        ciudadLbl4 = new javax.swing.JLabel();
-        direccionLbl4 = new javax.swing.JLabel();
-        telefonoLbl4 = new javax.swing.JLabel();
-        agregarNuevoVendedorLabel = new javax.swing.JLabel();
-        guardarAgregarNuevoVendedorBtn = new javax.swing.JButton();
-        cancelarAgregarNuevoVendedorBtn = new javax.swing.JButton();
-        guardarEditarVendedorBtn = new javax.swing.JButton();
-        legajoTxt = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        telefonoVentasTxt = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        emailVentasTxt = new javax.swing.JTextField();
-        editarVendedorLabel = new javax.swing.JLabel();
-        autoDialog = new javax.swing.JDialog(new javax.swing.JFrame(), true);
-        jLabel21 = new javax.swing.JLabel();
-        eliminarAutoBtn = new javax.swing.JButton();
-        agregarAutoBtn = new javax.swing.JButton();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        autoTable = new javax.swing.JTable();
-        guardarEditarAutoBtn = new javax.swing.JButton();
-        guardarAutoBtn = new javax.swing.JButton();
-        kmAutoTxt = new javax.swing.JTextField();
-        telefonoLbl7 = new javax.swing.JLabel();
-        direccionLbl6 = new javax.swing.JLabel();
-        telefonoLbl8 = new javax.swing.JLabel();
-        apellidoLbl4 = new javax.swing.JLabel();
-        nombreLbl5 = new javax.swing.JLabel();
-        numChasisAutoTxt = new javax.swing.JTextField();
-        patenteAutoTxt = new javax.swing.JTextField();
-        precioAutoTxt = new javax.swing.JTextField();
-        editarAutoLabel = new javax.swing.JLabel();
-        guardarNuevoAutoLabel = new javax.swing.JLabel();
-        automovilComboBox = new javax.swing.JComboBox<>();
-        cancelarAutoButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         menuPanel = new javax.swing.JPanel();
         ventasBtn = new javax.swing.JButton();
         vendedorBtn = new javax.swing.JButton();
-        marcasABMBtn = new javax.swing.JButton();
         autosBtn = new javax.swing.JButton();
         clienteBtn = new javax.swing.JButton();
         clientePanel = new javax.swing.JPanel();
-        editarClienteBtn = new javax.swing.JButton();
         eliminarClienteBtn = new javax.swing.JButton();
-        agregarClienteBtn = new javax.swing.JButton();
+        limpiarDatosClienteBtn = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         clienteTable = new javax.swing.JTable();
-        jLabel16 = new javax.swing.JLabel();
+        dniClienteTxt = new javax.swing.JTextField();
+        dniLbl1 = new javax.swing.JLabel();
+        apellidoClienteTxt = new javax.swing.JTextField();
+        apellidoLbl1 = new javax.swing.JLabel();
+        ciudadClienteTxt = new javax.swing.JTextField();
+        ciudadLbl3 = new javax.swing.JLabel();
+        telefonoClienteTxt = new javax.swing.JTextField();
+        telefonoLbl3 = new javax.swing.JLabel();
+        nombreClienteTxt = new javax.swing.JTextField();
+        nombreLbl1 = new javax.swing.JLabel();
+        fechaNacimientoLbl3 = new javax.swing.JLabel();
+        fechaNacimientoClienteDate = new com.toedter.calendar.JDateChooser();
+        direccionLbl3 = new javax.swing.JLabel();
+        direccionClienteTxt = new javax.swing.JTextField();
+        nombreLbl4 = new javax.swing.JLabel();
+        emailClienteTxt = new javax.swing.JTextField();
+        codpostalbl1 = new javax.swing.JLabel();
+        codigoPostalClienteTxt = new javax.swing.JTextField();
+        fechaAltaClienteDate = new com.toedter.calendar.JDateChooser();
+        fechaAltaLbl3 = new javax.swing.JLabel();
+        guardarClienteBtn = new javax.swing.JButton();
+        modificarClienteBtn = new javax.swing.JButton();
+        agregarNuevoClienteLabel = new javax.swing.JLabel();
+        editarClienteLabel = new javax.swing.JLabel();
         vendedorPanel = new javax.swing.JPanel();
-        editarVendedorBtn = new javax.swing.JButton();
         eliminarVendedorBtn = new javax.swing.JButton();
-        agregarVendedorBtn = new javax.swing.JButton();
+        limpiarDatosVendedorBtn = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         vendedorTable = new javax.swing.JTable();
-        jLabel19 = new javax.swing.JLabel();
-        marcaPanel = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        agregarMarcaBtn = new javax.swing.JButton();
-        eliminarMarcaBtn = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        marcaTable = new javax.swing.JTable();
-        guardarAgregarNuevaMarcaBtn = new javax.swing.JButton();
-        guardarEditarMarcaBtn = new javax.swing.JButton();
-        paisDeOrigenTxt = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        nombreMarcaTxt = new javax.swing.JTextField();
-        editarMarcaLabel = new javax.swing.JLabel();
-        guardarNuevaMarcaLabel = new javax.swing.JLabel();
-        cerrarSesionButton = new javax.swing.JButton();
+        nombreVendedorTxt = new javax.swing.JTextField();
+        nombreLbl2 = new javax.swing.JLabel();
+        apellidoVendedorTxt = new javax.swing.JTextField();
+        apellidoLbl2 = new javax.swing.JLabel();
+        telefonoVendedorTxt = new javax.swing.JTextField();
+        telefonoLbl4 = new javax.swing.JLabel();
+        direccionLbl4 = new javax.swing.JLabel();
+        direccionVendedorTxt = new javax.swing.JTextField();
+        fechaNacimientoVendedorDate = new com.toedter.calendar.JDateChooser();
+        fechaNacimientoLbl4 = new javax.swing.JLabel();
+        legajoTxt = new javax.swing.JTextField();
+        fechaAltaLbl4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        emailVentasTxt = new javax.swing.JTextField();
+        ciudadVendedorTxt = new javax.swing.JTextField();
+        ciudadLbl4 = new javax.swing.JLabel();
+        dniVendedorTxt = new javax.swing.JTextField();
+        dniLbl2 = new javax.swing.JLabel();
+        codpostalbl2 = new javax.swing.JLabel();
+        codigoPostalVendedorTxt = new javax.swing.JTextField();
+        telefonoVentasTxt = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        guardarVendedorBtn = new javax.swing.JButton();
+        modificarVendedorBtn = new javax.swing.JButton();
+        agregarNuevoVendedorLabel = new javax.swing.JLabel();
+        editarVendedorLabel = new javax.swing.JLabel();
+        salirButton = new javax.swing.JButton();
         automovilPanel = new javax.swing.JPanel();
         guardarAutomovilBtn = new javax.swing.JButton();
-        guardarEditarAutomovilBtn = new javax.swing.JButton();
+        modificarAutomovilBtn = new javax.swing.JButton();
         editarAutomovilLabel = new javax.swing.JLabel();
         guardarNuevoAutomovilLabel = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
         automovilTable = new javax.swing.JTable();
-        jLabel20 = new javax.swing.JLabel();
         eliminarAutomovilBtn = new javax.swing.JButton();
-        agregarAutomovilBtn = new javax.swing.JButton();
-        precioReferenciaAutomovilTxt = new javax.swing.JTextField();
+        limpiarDatosAutomovilBtn = new javax.swing.JButton();
+        precioTxt = new javax.swing.JTextField();
         nombreLbl3 = new javax.swing.JLabel();
         colorAutomovilTxt = new javax.swing.JTextField();
         apellidoLbl3 = new javax.swing.JLabel();
-        modeloAutomovilTxt = new javax.swing.JTextField();
-        marcaComboBox = new javax.swing.JComboBox<>();
+        anioTxt = new javax.swing.JTextField();
+        modeloComboBox = new javax.swing.JComboBox<>();
         direccionLbl5 = new javax.swing.JLabel();
         telefonoLbl5 = new javax.swing.JLabel();
-        modeloMarcaAutomovilTxt = new javax.swing.JTextField();
-        telefonoLbl6 = new javax.swing.JLabel();
-        detallesButton = new javax.swing.JButton();
-
-        clienteDialog.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                clienteDialogWindowClosing(evt);
-            }
-        });
-
-        apellidoLbl1.setText("Apellido");
-
-        dniLbl1.setText("DNI");
-
-        codpostalbl1.setText("Codigo postal");
-
-        nombreLbl1.setText("Nombre");
-
-        fechaAltaClienteDate.setDateFormatString("yyyy/MM/dd");
-
-        fechaNacimientoClienteDate.setDateFormatString("yyyy/MM/dd");
-
-        fechaAltaLbl3.setText("Fecha de Alta");
-
-        fechaNacimientoLbl3.setText("Fecha de nacimiento");
-
-        ciudadLbl3.setText("Ciudad");
-
-        direccionLbl3.setText("Direccion");
-
-        telefonoLbl3.setText("Telefono");
-
-        agregarNuevoClienteLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        agregarNuevoClienteLabel.setText("Agregar nuevo Cliente");
-
-        guardarAgregarNuevoClienteBtn.setText("Guardar");
-        guardarAgregarNuevoClienteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarAgregarNuevoClienteBtnActionPerformed(evt);
-            }
-        });
-
-        cancelarAgregarNuevoClienteBtn.setText("Cancelar");
-        cancelarAgregarNuevoClienteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarAgregarNuevoClienteBtnActionPerformed(evt);
-            }
-        });
-
-        nombreLbl4.setText("Email");
-
-        guardarEditarClienteBtn.setText("Guardar");
-        guardarEditarClienteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarEditarClienteBtnActionPerformed(evt);
-            }
-        });
-
-        editarClienteLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        editarClienteLabel.setText("Editar Cliente");
-
-        javax.swing.GroupLayout clienteDialogLayout = new javax.swing.GroupLayout(clienteDialog.getContentPane());
-        clienteDialog.getContentPane().setLayout(clienteDialogLayout);
-        clienteDialogLayout.setHorizontalGroup(
-            clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(clienteDialogLayout.createSequentialGroup()
-                .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(clienteDialogLayout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(fechaAltaLbl3)
-                        .addGap(29, 29, 29)
-                        .addComponent(fechaAltaClienteDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(nombreLbl4)
-                        .addGap(64, 64, 64))
-                    .addGroup(clienteDialogLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, clienteDialogLayout.createSequentialGroup()
-                                .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(apellidoLbl1)
-                                    .addComponent(nombreLbl1)
-                                    .addGroup(clienteDialogLayout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(dniLbl1)))
-                                .addGap(62, 62, 62))
-                            .addGroup(clienteDialogLayout.createSequentialGroup()
-                                .addComponent(codpostalbl1)
-                                .addGap(30, 30, 30)))
-                        .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nombreClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(clienteDialogLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(codigoPostalClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(clienteDialogLayout.createSequentialGroup()
-                                    .addComponent(guardarEditarClienteBtn)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(guardarAgregarNuevoClienteBtn))
-                                .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(dniClienteTxt, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(apellidoClienteTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-                        .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, clienteDialogLayout.createSequentialGroup()
-                                .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(clienteDialogLayout.createSequentialGroup()
-                                            .addComponent(telefonoLbl3)
-                                            .addGap(5, 5, 5))
-                                        .addComponent(direccionLbl3))
-                                    .addGroup(clienteDialogLayout.createSequentialGroup()
-                                        .addGap(7, 7, 7)
-                                        .addComponent(ciudadLbl3)))
-                                .addGap(59, 59, 59))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, clienteDialogLayout.createSequentialGroup()
-                                .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(cancelarAgregarNuevoClienteBtn)
-                                    .addComponent(fechaNacimientoLbl3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))))
-                .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(ciudadClienteTxt)
-                        .addComponent(telefonoClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(direccionClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(emailClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(clienteDialogLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(fechaNacimientoClienteDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(54, 54, 54))
-            .addGroup(clienteDialogLayout.createSequentialGroup()
-                .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(clienteDialogLayout.createSequentialGroup()
-                        .addGap(248, 248, 248)
-                        .addComponent(editarClienteLabel))
-                    .addGroup(clienteDialogLayout.createSequentialGroup()
-                        .addGap(215, 215, 215)
-                        .addComponent(agregarNuevoClienteLabel)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        clienteDialogLayout.setVerticalGroup(
-            clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, clienteDialogLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(editarClienteLabel)
-                .addGap(26, 26, 26)
-                .addComponent(agregarNuevoClienteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
-                .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(clienteDialogLayout.createSequentialGroup()
-                        .addComponent(nombreLbl1)
-                        .addGap(18, 18, 18)
-                        .addComponent(apellidoLbl1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dniLbl1)
-                        .addGap(27, 27, 27)
-                        .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(codpostalbl1)
-                            .addComponent(codigoPostalClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
-                        .addComponent(fechaAltaLbl3))
-                    .addGroup(clienteDialogLayout.createSequentialGroup()
-                        .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(clienteDialogLayout.createSequentialGroup()
-                                .addComponent(telefonoClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(direccionClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ciudadClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(fechaNacimientoClienteDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2))
-                            .addGroup(clienteDialogLayout.createSequentialGroup()
-                                .addGap(114, 114, 114)
-                                .addComponent(fechaNacimientoLbl3))
-                            .addGroup(clienteDialogLayout.createSequentialGroup()
-                                .addComponent(telefonoLbl3)
-                                .addGap(18, 18, 18)
-                                .addComponent(direccionLbl3)
-                                .addGap(18, 18, 18)
-                                .addComponent(ciudadLbl3))
-                            .addGroup(clienteDialogLayout.createSequentialGroup()
-                                .addComponent(nombreClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(apellidoClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dniClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(clienteDialogLayout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(emailClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nombreLbl4)))
-                            .addGroup(clienteDialogLayout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(fechaAltaClienteDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                .addGroup(clienteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(guardarAgregarNuevoClienteBtn)
-                    .addComponent(cancelarAgregarNuevoClienteBtn)
-                    .addComponent(guardarEditarClienteBtn))
-                .addGap(25, 25, 25))
-        );
-
-        vendedorDialog.setLocation(new java.awt.Point(0, 0));
-        vendedorDialog.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                vendedorDialogWindowClosing(evt);
-            }
-        });
-
-        apellidoLbl2.setText("Apellido");
-
-        dniLbl2.setText("DNI");
-
-        codpostalbl2.setText("Codigo postal");
-
-        nombreLbl2.setText("Nombre");
-
-        fechaNacimientoVendedorDate.setDateFormatString("yyyy/MM/dd");
-
-        fechaAltaLbl4.setText("Legajo");
-
-        fechaNacimientoLbl4.setText("Fecha de nacimiento");
-
-        ciudadLbl4.setText("Ciudad");
-
-        direccionLbl4.setText("Direccion");
-
-        telefonoLbl4.setText("Telefono");
-
-        agregarNuevoVendedorLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        agregarNuevoVendedorLabel.setText("Agregar nuevo Vendedor");
-
-        guardarAgregarNuevoVendedorBtn.setText("Guardar");
-        guardarAgregarNuevoVendedorBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarAgregarNuevoVendedorBtnActionPerformed(evt);
-            }
-        });
-
-        cancelarAgregarNuevoVendedorBtn.setText("Cancelar");
-        cancelarAgregarNuevoVendedorBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarAgregarNuevoVendedorBtnActionPerformed(evt);
-            }
-        });
-
-        guardarEditarVendedorBtn.setText("Guardar");
-        guardarEditarVendedorBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarEditarVendedorBtnActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setText("Telefono de ventas");
-
-        jLabel8.setText("Email de ventas");
-
-        editarVendedorLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        editarVendedorLabel.setText("Editar Vendedor");
-
-        javax.swing.GroupLayout vendedorDialogLayout = new javax.swing.GroupLayout(vendedorDialog.getContentPane());
-        vendedorDialog.getContentPane().setLayout(vendedorDialogLayout);
-        vendedorDialogLayout.setHorizontalGroup(
-            vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(vendedorDialogLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(vendedorDialogLayout.createSequentialGroup()
-                        .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vendedorDialogLayout.createSequentialGroup()
-                                .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(apellidoLbl2)
-                                    .addComponent(nombreLbl2)
-                                    .addComponent(dniLbl2))
-                                .addGap(62, 62, 62))
-                            .addGroup(vendedorDialogLayout.createSequentialGroup()
-                                .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(codpostalbl2)
-                                    .addComponent(jLabel4)
-                                    .addComponent(fechaAltaLbl4))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nombreVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(dniVendedorTxt, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(apellidoVendedorTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(codigoPostalVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(telefonoVentasTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                                .addComponent(legajoTxt, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vendedorDialogLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(guardarEditarVendedorBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(guardarAgregarNuevoVendedorBtn)
-                        .addGap(8, 8, 8)))
-                .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cancelarAgregarNuevoVendedorBtn)
-                    .addGroup(vendedorDialogLayout.createSequentialGroup()
-                        .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vendedorDialogLayout.createSequentialGroup()
-                                    .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(fechaNacimientoLbl4)
-                                        .addComponent(ciudadLbl4))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vendedorDialogLayout.createSequentialGroup()
-                                    .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(telefonoLbl4)
-                                        .addComponent(direccionLbl4))
-                                    .addGap(59, 59, 59)))
-                            .addGroup(vendedorDialogLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(27, 27, 27)))
-                        .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(emailVentasTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(ciudadVendedorTxt)
-                                    .addComponent(telefonoVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(direccionVendedorTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(fechaNacimientoVendedorDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vendedorDialogLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vendedorDialogLayout.createSequentialGroup()
-                        .addComponent(agregarNuevoVendedorLabel)
-                        .addGap(225, 225, 225))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vendedorDialogLayout.createSequentialGroup()
-                        .addComponent(editarVendedorLabel)
-                        .addGap(261, 261, 261))))
-        );
-        vendedorDialogLayout.setVerticalGroup(
-            vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vendedorDialogLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(editarVendedorLabel)
-                .addGap(26, 26, 26)
-                .addComponent(agregarNuevoVendedorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vendedorDialogLayout.createSequentialGroup()
-                        .addComponent(nombreLbl2)
-                        .addGap(18, 18, 18)
-                        .addComponent(apellidoLbl2)
-                        .addGap(18, 18, 18)
-                        .addComponent(dniLbl2)
-                        .addGap(20, 20, 20))
-                    .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(vendedorDialogLayout.createSequentialGroup()
-                            .addComponent(telefonoLbl4)
-                            .addGap(18, 18, 18)
-                            .addComponent(direccionLbl4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                            .addComponent(ciudadLbl4)
-                            .addGap(18, 18, 18))
-                        .addGroup(vendedorDialogLayout.createSequentialGroup()
-                            .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(vendedorDialogLayout.createSequentialGroup()
-                                    .addComponent(telefonoVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(direccionVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(ciudadVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(vendedorDialogLayout.createSequentialGroup()
-                                    .addComponent(nombreVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(apellidoVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(dniVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(14, 14, 14))))
-                .addGap(3, 3, 3)
-                .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(vendedorDialogLayout.createSequentialGroup()
-                        .addComponent(fechaNacimientoVendedorDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                        .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(legajoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fechaAltaLbl4))
-                        .addGap(25, 25, 25)
-                        .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(telefonoVentasTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE))
-                    .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(vendedorDialogLayout.createSequentialGroup()
-                            .addComponent(fechaNacimientoLbl4)
-                            .addGap(39, 39, 39)
-                            .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel8)
-                                .addComponent(emailVentasTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, vendedorDialogLayout.createSequentialGroup()
-                            .addGap(1, 1, 1)
-                            .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(codigoPostalVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(codpostalbl2)))))
-                .addGroup(vendedorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelarAgregarNuevoVendedorBtn)
-                    .addComponent(guardarAgregarNuevoVendedorBtn)
-                    .addComponent(guardarEditarVendedorBtn))
-                .addGap(34, 34, 34))
-        );
-
-        autoDialog.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                autoDialogWindowClosing(evt);
-            }
-        });
-
-        jLabel21.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel21.setText("Detalle de autos");
-
-        eliminarAutoBtn.setText("Eliminar");
-        eliminarAutoBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarAutoBtnActionPerformed(evt);
-            }
-        });
-
-        agregarAutoBtn.setText("Agregar nuevo Auto");
-        agregarAutoBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarAutoBtnActionPerformed(evt);
-            }
-        });
-
-        autoTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Id", "Patente", "Marca", "Precio final", "Km", "Modelo Marca", "Modelo", "Color", "Num Chasis"
-            }
-        ));
-        autoTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                autoTableMouseClicked(evt);
-            }
-        });
-        jScrollPane9.setViewportView(autoTable);
-        if (autoTable.getColumnModel().getColumnCount() > 0) {
-            autoTable.getColumnModel().getColumn(0).setPreferredWidth(30);
-            autoTable.getColumnModel().getColumn(1).setPreferredWidth(100);
-            autoTable.getColumnModel().getColumn(2).setPreferredWidth(100);
-            autoTable.getColumnModel().getColumn(3).setPreferredWidth(150);
-            autoTable.getColumnModel().getColumn(4).setPreferredWidth(60);
-            autoTable.getColumnModel().getColumn(5).setPreferredWidth(150);
-            autoTable.getColumnModel().getColumn(6).setPreferredWidth(100);
-            autoTable.getColumnModel().getColumn(8).setPreferredWidth(150);
-        }
-
-        guardarEditarAutoBtn.setText("Guardar");
-        guardarEditarAutoBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarEditarAutoBtnActionPerformed(evt);
-            }
-        });
-
-        guardarAutoBtn.setText("Guardar");
-        guardarAutoBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarAutoBtnActionPerformed(evt);
-            }
-        });
-
-        telefonoLbl7.setText("Km");
-
-        direccionLbl6.setText("Precio final");
-
-        telefonoLbl8.setText("Automovil");
-
-        apellidoLbl4.setText("Patente");
-
-        nombreLbl5.setText("Num chasis");
-
-        numChasisAutoTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numChasisAutoTxtActionPerformed(evt);
-            }
-        });
-
-        editarAutoLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        editarAutoLabel.setForeground(new java.awt.Color(255, 51, 51));
-        editarAutoLabel.setText("Edita este Auto");
-
-        guardarNuevoAutoLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        guardarNuevoAutoLabel.setForeground(new java.awt.Color(255, 51, 51));
-        guardarNuevoAutoLabel.setText("Guarda un nuevo Auto");
-
-        automovilComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                automovilComboBoxActionPerformed(evt);
-            }
-        });
-
-        cancelarAutoButton.setText("Cancelar");
-        cancelarAutoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarAutoButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout autoDialogLayout = new javax.swing.GroupLayout(autoDialog.getContentPane());
-        autoDialog.getContentPane().setLayout(autoDialogLayout);
-        autoDialogLayout.setHorizontalGroup(
-            autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(autoDialogLayout.createSequentialGroup()
-                .addContainerGap(581, Short.MAX_VALUE)
-                .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autoDialogLayout.createSequentialGroup()
-                        .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(autoDialogLayout.createSequentialGroup()
-                                .addComponent(telefonoLbl8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(automovilComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(autoDialogLayout.createSequentialGroup()
-                                .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(telefonoLbl7)
-                                    .addComponent(direccionLbl6))
-                                .addGap(85, 85, 85)
-                                .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(kmAutoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(precioAutoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(83, 83, 83))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autoDialogLayout.createSequentialGroup()
-                        .addComponent(guardarAutoBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(guardarEditarAutoBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cancelarAutoButton)
-                        .addGap(120, 120, 120))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autoDialogLayout.createSequentialGroup()
-                        .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(guardarNuevoAutoLabel)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autoDialogLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(editarAutoLabel)
-                                .addGap(30, 30, 30)))
-                        .addGap(129, 129, 129))))
-            .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(autoDialogLayout.createSequentialGroup()
-                    .addGap(130, 130, 130)
-                    .addComponent(agregarAutoBtn)
-                    .addGap(52, 52, 52)
-                    .addComponent(eliminarAutoBtn)
-                    .addGap(114, 585, Short.MAX_VALUE))
-                .addGroup(autoDialogLayout.createSequentialGroup()
-                    .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(autoDialogLayout.createSequentialGroup()
-                            .addGap(183, 183, 183)
-                            .addComponent(jLabel21))
-                        .addGroup(autoDialogLayout.createSequentialGroup()
-                            .addGap(37, 37, 37)
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(90, 90, 90)
-                            .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(numChasisAutoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(patenteAutoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(autoDialogLayout.createSequentialGroup()
-                                    .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(nombreLbl5)
-                                        .addGroup(autoDialogLayout.createSequentialGroup()
-                                            .addGap(1, 1, 1)
-                                            .addComponent(apellidoLbl4)))
-                                    .addGap(0, 251, Short.MAX_VALUE)))))
-                    .addGap(84, 84, 84)))
-        );
-        autoDialogLayout.setVerticalGroup(
-            autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autoDialogLayout.createSequentialGroup()
-                .addGap(101, 101, 101)
-                .addComponent(guardarNuevoAutoLabel)
-                .addGap(25, 25, 25)
-                .addComponent(editarAutoLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
-                .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(automovilComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(telefonoLbl8))
-                .addGap(18, 18, 18)
-                .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(precioAutoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(direccionLbl6))
-                .addGap(18, 18, 18)
-                .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(telefonoLbl7)
-                    .addComponent(kmAutoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(guardarAutoBtn)
-                    .addComponent(guardarEditarAutoBtn)
-                    .addComponent(cancelarAutoButton))
-                .addGap(40, 40, 40))
-            .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(autoDialogLayout.createSequentialGroup()
-                    .addGap(48, 48, 48)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(53, 53, 53)
-                    .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(autoDialogLayout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
-                            .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, autoDialogLayout.createSequentialGroup()
-                                    .addComponent(nombreLbl5)
-                                    .addGap(44, 44, 44))
-                                .addGroup(autoDialogLayout.createSequentialGroup()
-                                    .addComponent(numChasisAutoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(patenteAutoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(apellidoLbl4))))
-                            .addGap(209, 209, 209))
-                        .addGroup(autoDialogLayout.createSequentialGroup()
-                            .addGroup(autoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(agregarAutoBtn)
-                                .addComponent(eliminarAutoBtn))
-                            .addGap(76, 76, 76)
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap(83, Short.MAX_VALUE)))))
-        );
+        kmTxt = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        stockTxt = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        editarModeloLabel = new javax.swing.JLabel();
+        guardarNuevoModeloLabel = new javax.swing.JLabel();
+        marcaTxt = new javax.swing.JTextField();
+        nombreModeloTxt = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        modificarModeloBtn = new javax.swing.JButton();
+        guardarModeloBtn = new javax.swing.JButton();
+        eliminarModeloBtn = new javax.swing.JButton();
+        limpiarDatosModeloBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        modeloTable = new javax.swing.JTable();
+        ventaPanel = new javax.swing.JPanel();
+        eliminarVentaBtn = new javax.swing.JButton();
+        limpiarDatosVentaBtn = new javax.swing.JButton();
+        editarVentaLabel = new javax.swing.JLabel();
+        guardarVentaLabel = new javax.swing.JLabel();
+        fechaVentaDateChooser = new com.toedter.calendar.JDateChooser();
+        montoTotalTxt = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        guardarVentaBtn = new javax.swing.JButton();
+        clienteComboBox = new javax.swing.JComboBox<>();
+        vendedorComboBox = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        agregarNuevoVendedorLabel1 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        cuotasTxt = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        automovilVentaTable = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ventaTable = new javax.swing.JTable();
+        modificarVentaBtn = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        ventaDetalleTable = new javax.swing.JTable();
+        detalleLabel = new javax.swing.JLabel();
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/img/perfil-del-usuario.png"))); // NOI18N
         jLabel2.setText("jLabel2");
 
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel3.setText("Administracion de Concesionaria");
+        jLabel3.setText("Concesionaria");
         jLabel3.setPreferredSize(new java.awt.Dimension(220, 32));
 
-        ventasBtn.setFont(new java.awt.Font("Dialog", 1, 21)); // NOI18N
-        ventasBtn.setText("Ventas - ABM");
+        ventasBtn.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        ventasBtn.setText("Ventas");
+        ventasBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ventasBtnActionPerformed(evt);
+            }
+        });
 
-        vendedorBtn.setFont(new java.awt.Font("Dialog", 1, 21)); // NOI18N
-        vendedorBtn.setText("Vendedores ABM");
+        vendedorBtn.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        vendedorBtn.setText("Vendedores");
         vendedorBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 vendedorBtnActionPerformed(evt);
             }
         });
 
-        marcasABMBtn.setFont(new java.awt.Font("Dialog", 1, 21)); // NOI18N
-        marcasABMBtn.setText("Marcas ABM");
-        marcasABMBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                marcasABMBtnActionPerformed(evt);
-            }
-        });
-
-        autosBtn.setFont(new java.awt.Font("Dialog", 1, 21)); // NOI18N
-        autosBtn.setText("Automoviles ABM");
+        autosBtn.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        autosBtn.setText("Automoviles");
         autosBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autosBtnActionPerformed(evt);
             }
         });
 
-        clienteBtn.setFont(new java.awt.Font("Dialog", 1, 21)); // NOI18N
-        clienteBtn.setText("Clientes ABM");
+        clienteBtn.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        clienteBtn.setText("Clientes");
         clienteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clienteBtnActionPerformed(evt);
@@ -885,36 +255,30 @@ public class AdministradorView extends javax.swing.JPanel {
             .addGroup(menuPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(autosBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ventasBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(menuPanelLayout.createSequentialGroup()
-                        .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(autosBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
-                            .addComponent(ventasBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(marcasABMBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(vendedorBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(clienteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(clienteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(vendedorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPanelLayout.createSequentialGroup()
-                .addComponent(ventasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(autosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(marcasABMBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(vendedorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(clienteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                .addGap(32, 32, 32))
+                .addGap(82, 82, 82)
+                .addComponent(ventasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(autosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(vendedorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(clienteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
         );
 
-        editarClienteBtn.setText("Editar");
-        editarClienteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editarClienteBtnActionPerformed(evt);
-            }
-        });
+        clientePanel.setPreferredSize(new java.awt.Dimension(1050, 550));
 
         eliminarClienteBtn.setText("Eliminar");
         eliminarClienteBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -923,10 +287,10 @@ public class AdministradorView extends javax.swing.JPanel {
             }
         });
 
-        agregarClienteBtn.setText("Agregar nuevo Cliente");
-        agregarClienteBtn.addActionListener(new java.awt.event.ActionListener() {
+        limpiarDatosClienteBtn.setText("Limpiar Datos");
+        limpiarDatosClienteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarClienteBtnActionPerformed(evt);
+                limpiarDatosClienteBtnActionPerformed(evt);
             }
         });
 
@@ -935,9 +299,17 @@ public class AdministradorView extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "Nombre", "Apellido", "Dni", "Fecha Nacimiento", "Telefono", "Dirección", "Ciudad", "Cod Postal", "Fecha Alta", "Email"
+                "Id", "Nombre", "Apellido", "Dni", "Fecha Nac", "Telefono", "Dirección", "Ciudad", "Cod Postal", "Fecha Alta", "Email"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, true, true, true, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         clienteTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 clienteTableMouseClicked(evt);
@@ -945,22 +317,70 @@ public class AdministradorView extends javax.swing.JPanel {
         });
         jScrollPane4.setViewportView(clienteTable);
         if (clienteTable.getColumnModel().getColumnCount() > 0) {
-            clienteTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+            clienteTable.getColumnModel().getColumn(0).setPreferredWidth(30);
             clienteTable.getColumnModel().getColumn(1).setPreferredWidth(60);
             clienteTable.getColumnModel().getColumn(2).setPreferredWidth(60);
-            clienteTable.getColumnModel().getColumn(3).setPreferredWidth(70);
+            clienteTable.getColumnModel().getColumn(3).setPreferredWidth(50);
             clienteTable.getColumnModel().getColumn(4).setPreferredWidth(70);
             clienteTable.getColumnModel().getColumn(5).setPreferredWidth(70);
-            clienteTable.getColumnModel().getColumn(6).setPreferredWidth(100);
+            clienteTable.getColumnModel().getColumn(6).setPreferredWidth(120);
             clienteTable.getColumnModel().getColumn(7).setPreferredWidth(100);
             clienteTable.getColumnModel().getColumn(8).setPreferredWidth(50);
-            clienteTable.getColumnModel().getColumn(9).setPreferredWidth(70);
-            clienteTable.getColumnModel().getColumn(10).setResizable(false);
-            clienteTable.getColumnModel().getColumn(10).setPreferredWidth(100);
+            clienteTable.getColumnModel().getColumn(9).setPreferredWidth(80);
+            clienteTable.getColumnModel().getColumn(10).setPreferredWidth(120);
         }
 
-        jLabel16.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel16.setText("Clientes");
+        dniLbl1.setText("DNI:");
+
+        apellidoLbl1.setText("Apellido:");
+
+        ciudadLbl3.setText("Ciudad:");
+
+        telefonoLbl3.setText("Telefono:");
+
+        nombreLbl1.setText("Nombre:");
+
+        fechaNacimientoLbl3.setText("Fecha de nacimiento:");
+
+        fechaNacimientoClienteDate.setDateFormatString("yyyy/MM/dd");
+
+        direccionLbl3.setText("Direccion:");
+
+        nombreLbl4.setText("Email");
+
+        codpostalbl1.setText("Codigo postal:");
+
+        codigoPostalClienteTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codigoPostalClienteTxtActionPerformed(evt);
+            }
+        });
+
+        fechaAltaClienteDate.setDateFormatString("yyyy/MM/dd");
+
+        fechaAltaLbl3.setText("Fecha de Alta:");
+
+        guardarClienteBtn.setText("Guardar");
+        guardarClienteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarClienteBtnActionPerformed(evt);
+            }
+        });
+
+        modificarClienteBtn.setText("Modificar");
+        modificarClienteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarClienteBtnActionPerformed(evt);
+            }
+        });
+
+        agregarNuevoClienteLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        agregarNuevoClienteLabel.setForeground(new java.awt.Color(102, 102, 255));
+        agregarNuevoClienteLabel.setText("Agregue un nuevo Cliente:");
+
+        editarClienteLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        editarClienteLabel.setForeground(new java.awt.Color(255, 51, 51));
+        editarClienteLabel.setText("Edite el Cliente:");
 
         javax.swing.GroupLayout clientePanelLayout = new javax.swing.GroupLayout(clientePanel);
         clientePanel.setLayout(clientePanelLayout);
@@ -969,42 +389,112 @@ public class AdministradorView extends javax.swing.JPanel {
             .addGroup(clientePanelLayout.createSequentialGroup()
                 .addGroup(clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(clientePanelLayout.createSequentialGroup()
+                        .addGap(411, 411, 411)
+                        .addComponent(limpiarDatosClienteBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(eliminarClienteBtn))
+                    .addGroup(clientePanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 1038, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(clientePanelLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(clientePanelLayout.createSequentialGroup()
-                                .addGap(268, 268, 268)
-                                .addComponent(jLabel16))
+                                .addComponent(agregarNuevoClienteLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(editarClienteLabel))
                             .addGroup(clientePanelLayout.createSequentialGroup()
-                                .addGap(137, 137, 137)
-                                .addComponent(editarClienteBtn)
-                                .addGap(53, 53, 53)
-                                .addComponent(agregarClienteBtn)
-                                .addGap(58, 58, 58)
-                                .addComponent(eliminarClienteBtn)))
-                        .addGap(0, 317, Short.MAX_VALUE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                                .addComponent(nombreLbl1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nombreClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(ciudadLbl3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ciudadClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nombreLbl4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(emailClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fechaAltaLbl3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fechaAltaClienteDate, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fechaNacimientoLbl3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fechaNacimientoClienteDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(clientePanelLayout.createSequentialGroup()
+                                .addComponent(apellidoLbl1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(apellidoClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(direccionLbl3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(direccionClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(codpostalbl1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(codigoPostalClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(dniLbl1)
+                                .addGap(18, 18, 18)
+                                .addComponent(dniClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(telefonoLbl3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(telefonoClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(guardarClienteBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(modificarClienteBtn)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         clientePanelLayout.setVerticalGroup(
             clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(clientePanelLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
                 .addGroup(clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(editarClienteBtn)
-                    .addComponent(agregarClienteBtn)
+                    .addComponent(agregarNuevoClienteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editarClienteLabel))
+                .addGap(36, 36, 36)
+                .addGroup(clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(clientePanelLayout.createSequentialGroup()
+                        .addGroup(clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(nombreClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nombreLbl1))
+                                .addGroup(clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(ciudadLbl3)
+                                    .addComponent(ciudadClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nombreLbl4)
+                                    .addComponent(emailClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fechaAltaLbl3)))
+                            .addComponent(fechaNacimientoClienteDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fechaNacimientoLbl3))
+                        .addGap(18, 18, 18)
+                        .addGroup(clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(apellidoLbl1)
+                            .addComponent(apellidoClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(direccionLbl3)
+                            .addComponent(direccionClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(codpostalbl1)
+                            .addComponent(codigoPostalClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dniLbl1)
+                            .addComponent(dniClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(telefonoLbl3)
+                            .addComponent(telefonoClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(guardarClienteBtn)
+                            .addComponent(modificarClienteBtn)))
+                    .addComponent(fechaAltaClienteDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(clientePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(limpiarDatosClienteBtn)
                     .addComponent(eliminarClienteBtn))
-                .addGap(60, 60, 60)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
-
-        editarVendedorBtn.setText("Editar");
-        editarVendedorBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editarVendedorBtnActionPerformed(evt);
-            }
-        });
 
         eliminarVendedorBtn.setText("Eliminar");
         eliminarVendedorBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -1013,10 +503,10 @@ public class AdministradorView extends javax.swing.JPanel {
             }
         });
 
-        agregarVendedorBtn.setText("Agregar nuevo Vendedor");
-        agregarVendedorBtn.addActionListener(new java.awt.event.ActionListener() {
+        limpiarDatosVendedorBtn.setText("Limpiar Datos");
+        limpiarDatosVendedorBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarVendedorBtnActionPerformed(evt);
+                limpiarDatosVendedorBtnActionPerformed(evt);
             }
         });
 
@@ -1056,183 +546,174 @@ public class AdministradorView extends javax.swing.JPanel {
             vendedorTable.getColumnModel().getColumn(11).setHeaderValue("Email Vendedor");
         }
 
-        jLabel19.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel19.setText("Vendedores");
+        nombreLbl2.setText("Nombre:");
+
+        apellidoLbl2.setText("Apellido:");
+
+        telefonoLbl4.setText("Telefono:");
+
+        direccionLbl4.setText("Direccion:");
+
+        fechaNacimientoVendedorDate.setDateFormatString("yyyy/MM/dd");
+
+        fechaNacimientoLbl4.setText("Fecha de nacimiento:");
+
+        fechaAltaLbl4.setText("Legajo:");
+
+        jLabel8.setText("Email de ventas:");
+
+        ciudadLbl4.setText("Ciudad:");
+
+        dniLbl2.setText("DNI:");
+
+        codpostalbl2.setText("Codigo postal:");
+
+        jLabel4.setText("Telefono de ventas:");
+
+        guardarVendedorBtn.setText("Guardar");
+        guardarVendedorBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarVendedorBtnActionPerformed(evt);
+            }
+        });
+
+        modificarVendedorBtn.setText("Modificar");
+        modificarVendedorBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarVendedorBtnActionPerformed(evt);
+            }
+        });
+
+        agregarNuevoVendedorLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        agregarNuevoVendedorLabel.setForeground(new java.awt.Color(0, 0, 255));
+        agregarNuevoVendedorLabel.setText("Agregue un nuevo Vendedor:");
+
+        editarVendedorLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        editarVendedorLabel.setForeground(new java.awt.Color(255, 102, 102));
+        editarVendedorLabel.setText("Edite el Vendedor:");
 
         javax.swing.GroupLayout vendedorPanelLayout = new javax.swing.GroupLayout(vendedorPanel);
         vendedorPanel.setLayout(vendedorPanelLayout);
         vendedorPanelLayout.setHorizontalGroup(
             vendedorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(vendedorPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(editarVendedorBtn)
-                .addGap(85, 85, 85)
+                .addContainerGap(309, Short.MAX_VALUE)
                 .addGroup(vendedorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel19)
-                    .addGroup(vendedorPanelLayout.createSequentialGroup()
-                        .addComponent(agregarVendedorBtn)
-                        .addGap(153, 153, 153)
-                        .addComponent(eliminarVendedorBtn)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(vendedorPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 961, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vendedorPanelLayout.createSequentialGroup()
+                        .addGroup(vendedorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(vendedorPanelLayout.createSequentialGroup()
+                                .addComponent(agregarNuevoVendedorLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(editarVendedorLabel))
+                            .addGroup(vendedorPanelLayout.createSequentialGroup()
+                                .addComponent(nombreLbl2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nombreVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(apellidoLbl2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(apellidoVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(telefonoLbl4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(telefonoVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dniLbl2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dniVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(codpostalbl2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(codigoPostalVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(emailVentasTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fechaAltaLbl4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(legajoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(vendedorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 956, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(vendedorPanelLayout.createSequentialGroup()
+                                    .addComponent(direccionLbl4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(direccionVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(2, 2, 2)
+                                    .addComponent(ciudadLbl4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(ciudadVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(telefonoVentasTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(fechaNacimientoLbl4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(fechaNacimientoVendedorDate, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(guardarVendedorBtn)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(modificarVendedorBtn))))
+                        .addGap(110, 110, 110))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vendedorPanelLayout.createSequentialGroup()
+                        .addComponent(limpiarDatosVendedorBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(eliminarVendedorBtn)
+                        .addGap(532, 532, 532))))
         );
         vendedorPanelLayout.setVerticalGroup(
             vendedorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(vendedorPanelLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vendedorPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(vendedorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(agregarVendedorBtn)
-                    .addComponent(editarVendedorBtn)
+                    .addComponent(agregarNuevoVendedorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editarVendedorLabel))
+                .addGap(48, 48, 48)
+                .addGroup(vendedorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombreVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreLbl2)
+                    .addComponent(apellidoVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(apellidoLbl2)
+                    .addComponent(telefonoLbl4)
+                    .addComponent(telefonoVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dniLbl2)
+                    .addComponent(dniVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(codpostalbl2)
+                    .addComponent(codigoPostalVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(emailVentasTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fechaAltaLbl4)
+                    .addComponent(legajoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(vendedorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(vendedorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(vendedorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(direccionLbl4)
+                            .addComponent(direccionVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ciudadLbl4)
+                            .addComponent(ciudadVendedorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(telefonoVentasTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fechaNacimientoLbl4)
+                        .addComponent(fechaNacimientoVendedorDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(vendedorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(guardarVendedorBtn)
+                        .addComponent(modificarVendedorBtn)))
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addGroup(vendedorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(limpiarDatosVendedorBtn)
                     .addComponent(eliminarVendedorBtn))
-                .addGap(52, 52, 52)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
-        jLabel12.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel12.setText("Marcas");
-
-        agregarMarcaBtn.setText("Agregar nueva Marca");
-        agregarMarcaBtn.addActionListener(new java.awt.event.ActionListener() {
+        salirButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        salirButton.setText("Salir");
+        salirButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarMarcaBtnActionPerformed(evt);
-            }
-        });
-
-        eliminarMarcaBtn.setText("Eliminar");
-        eliminarMarcaBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarMarcaBtnActionPerformed(evt);
-            }
-        });
-
-        marcaTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Id", "Nombre", "Pais de Origen"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        marcaTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                marcaTableMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(marcaTable);
-
-        guardarAgregarNuevaMarcaBtn.setText("Guardar");
-        guardarAgregarNuevaMarcaBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarAgregarNuevaMarcaBtnActionPerformed(evt);
-            }
-        });
-
-        guardarEditarMarcaBtn.setText("Guardar");
-        guardarEditarMarcaBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarEditarMarcaBtnActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setText("Pais de Origen:");
-
-        jLabel9.setText("Nombre:");
-
-        editarMarcaLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        editarMarcaLabel.setForeground(new java.awt.Color(255, 51, 51));
-        editarMarcaLabel.setText("Edita esta Marca");
-
-        guardarNuevaMarcaLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        guardarNuevaMarcaLabel.setForeground(new java.awt.Color(255, 51, 51));
-        guardarNuevaMarcaLabel.setText("Guarda nueva Marca");
-
-        javax.swing.GroupLayout marcaPanelLayout = new javax.swing.GroupLayout(marcaPanel);
-        marcaPanel.setLayout(marcaPanelLayout);
-        marcaPanelLayout.setHorizontalGroup(
-            marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(marcaPanelLayout.createSequentialGroup()
-                .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(marcaPanelLayout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(marcaPanelLayout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(agregarMarcaBtn)
-                        .addGap(78, 78, 78)
-                        .addComponent(eliminarMarcaBtn)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
-                .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel9))
-                .addGap(18, 18, 18)
-                .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nombreMarcaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paisDeOrigenTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(guardarAgregarNuevaMarcaBtn)
-                        .addComponent(guardarEditarMarcaBtn)))
-                .addGap(80, 80, 80))
-            .addGroup(marcaPanelLayout.createSequentialGroup()
-                .addGap(322, 322, 322)
-                .addComponent(jLabel12)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, marcaPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(guardarNuevaMarcaLabel)
-                    .addComponent(editarMarcaLabel))
-                .addGap(78, 78, 78))
-        );
-        marcaPanelLayout.setVerticalGroup(
-            marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(marcaPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
-                .addComponent(guardarNuevaMarcaLabel)
-                .addGap(2, 2, 2)
-                .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(agregarMarcaBtn)
-                    .addComponent(eliminarMarcaBtn))
-                .addGap(4, 4, 4)
-                .addComponent(editarMarcaLabel)
-                .addGap(18, 18, 18)
-                .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(marcaPanelLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nombreMarcaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(marcaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(paisDeOrigenTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(guardarAgregarNuevaMarcaBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(guardarEditarMarcaBtn)))
-                .addContainerGap(116, Short.MAX_VALUE))
-        );
-
-        cerrarSesionButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        cerrarSesionButton.setText("Salir");
-        cerrarSesionButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cerrarSesionButtonActionPerformed(evt);
+                salirButtonActionPerformed(evt);
             }
         });
 
@@ -1243,25 +724,27 @@ public class AdministradorView extends javax.swing.JPanel {
             }
         });
 
-        guardarEditarAutomovilBtn.setText("Guardar");
-        guardarEditarAutomovilBtn.addActionListener(new java.awt.event.ActionListener() {
+        modificarAutomovilBtn.setText("Modificar");
+        modificarAutomovilBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarEditarAutomovilBtnActionPerformed(evt);
+                modificarAutomovilBtnActionPerformed(evt);
             }
         });
 
-        editarAutomovilLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        editarAutomovilLabel.setText("Edita este Automovil");
+        editarAutomovilLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        editarAutomovilLabel.setForeground(new java.awt.Color(255, 51, 51));
+        editarAutomovilLabel.setText("Edite el Automovil");
 
-        guardarNuevoAutomovilLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        guardarNuevoAutomovilLabel.setText("Guarda un nuevo Automovil");
+        guardarNuevoAutomovilLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        guardarNuevoAutomovilLabel.setForeground(new java.awt.Color(0, 51, 255));
+        guardarNuevoAutomovilLabel.setText("Automoviles");
 
         automovilTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Precio de Referencia", "Color", "Modelo", "Marca", "Modelo de la Marca"
+                "Id Auto", "Id Modelo", "Marca", "Modelo", "Año", "Color", "Precio", "Km", "Stock"
             }
         ));
         automovilTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1271,17 +754,18 @@ public class AdministradorView extends javax.swing.JPanel {
         });
         jScrollPane7.setViewportView(automovilTable);
         if (automovilTable.getColumnModel().getColumnCount() > 0) {
-            automovilTable.getColumnModel().getColumn(0).setPreferredWidth(150);
-            automovilTable.getColumnModel().getColumn(1).setPreferredWidth(100);
-            automovilTable.getColumnModel().getColumn(2).setPreferredWidth(100);
-            automovilTable.getColumnModel().getColumn(3).setPreferredWidth(100);
-            automovilTable.getColumnModel().getColumn(4).setPreferredWidth(60);
-            automovilTable.getColumnModel().getColumn(5).setPreferredWidth(150);
-            automovilTable.getColumnModel().getColumn(5).setHeaderValue("");
+            automovilTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+            automovilTable.getColumnModel().getColumn(0).setHeaderValue("Id Auto");
+            automovilTable.getColumnModel().getColumn(1).setPreferredWidth(60);
+            automovilTable.getColumnModel().getColumn(1).setHeaderValue("Id Modelo");
+            automovilTable.getColumnModel().getColumn(2).setPreferredWidth(70);
+            automovilTable.getColumnModel().getColumn(3).setPreferredWidth(80);
+            automovilTable.getColumnModel().getColumn(4).setPreferredWidth(50);
+            automovilTable.getColumnModel().getColumn(5).setPreferredWidth(50);
+            automovilTable.getColumnModel().getColumn(6).setPreferredWidth(50);
+            automovilTable.getColumnModel().getColumn(7).setPreferredWidth(50);
+            automovilTable.getColumnModel().getColumn(8).setPreferredWidth(40);
         }
-
-        jLabel20.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel20.setText("Automoviles");
 
         eliminarAutomovilBtn.setText("Eliminar");
         eliminarAutomovilBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -1290,138 +774,489 @@ public class AdministradorView extends javax.swing.JPanel {
             }
         });
 
-        agregarAutomovilBtn.setText("Agregar nuevo Automovil");
-        agregarAutomovilBtn.addActionListener(new java.awt.event.ActionListener() {
+        limpiarDatosAutomovilBtn.setText("Limpiar Datos");
+        limpiarDatosAutomovilBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarAutomovilBtnActionPerformed(evt);
+                limpiarDatosAutomovilBtnActionPerformed(evt);
             }
         });
 
-        nombreLbl3.setText("Precio de Referencia");
+        nombreLbl3.setText("Precio:");
 
-        apellidoLbl3.setText("Color");
+        apellidoLbl3.setText("Color:");
 
-        direccionLbl5.setText("Marca");
+        direccionLbl5.setText("Modelo:");
 
-        telefonoLbl5.setText("Año de fabricacion");
+        telefonoLbl5.setText("Año:");
 
-        telefonoLbl6.setText("Modelo de la marca");
+        jLabel14.setText("Km:");
 
-        detallesButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        detallesButton.setText("Detalles");
-        detallesButton.addActionListener(new java.awt.event.ActionListener() {
+        jLabel15.setText("Stock:");
+
+        editarModeloLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        editarModeloLabel.setForeground(new java.awt.Color(255, 51, 51));
+        editarModeloLabel.setText("Edite el Modelo");
+
+        guardarNuevoModeloLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        guardarNuevoModeloLabel.setForeground(new java.awt.Color(51, 0, 51));
+        guardarNuevoModeloLabel.setText("Modelos");
+
+        jLabel9.setText("Nombre:");
+
+        jLabel7.setText("Marca:");
+
+        modificarModeloBtn.setText("Modificar");
+        modificarModeloBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                detallesButtonActionPerformed(evt);
+                modificarModeloBtnActionPerformed(evt);
             }
         });
+
+        guardarModeloBtn.setText("Guardar");
+        guardarModeloBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarModeloBtnActionPerformed(evt);
+            }
+        });
+
+        eliminarModeloBtn.setText("Eliminar");
+        eliminarModeloBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarModeloBtnActionPerformed(evt);
+            }
+        });
+
+        limpiarDatosModeloBtn.setText("Limpiar Datos");
+        limpiarDatosModeloBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiarDatosModeloBtnActionPerformed(evt);
+            }
+        });
+
+        modeloTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Marca", "Modelo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        modeloTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modeloTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(modeloTable);
+        if (modeloTable.getColumnModel().getColumnCount() > 0) {
+            modeloTable.getColumnModel().getColumn(0).setMinWidth(40);
+            modeloTable.getColumnModel().getColumn(0).setPreferredWidth(40);
+            modeloTable.getColumnModel().getColumn(0).setMaxWidth(40);
+        }
 
         javax.swing.GroupLayout automovilPanelLayout = new javax.swing.GroupLayout(automovilPanel);
         automovilPanel.setLayout(automovilPanelLayout);
         automovilPanelLayout.setHorizontalGroup(
             automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(automovilPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, automovilPanelLayout.createSequentialGroup()
+                .addContainerGap(310, Short.MAX_VALUE)
                 .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(automovilPanelLayout.createSequentialGroup()
-                        .addGap(309, 309, 309)
-                        .addComponent(agregarAutomovilBtn)
-                        .addGap(52, 52, 52)
-                        .addComponent(eliminarAutomovilBtn)
-                        .addGap(224, 224, 224)
-                        .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(guardarNuevoAutomovilLabel)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, automovilPanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(editarAutomovilLabel)
-                                .addGap(30, 30, 30))))
-                    .addGroup(automovilPanelLayout.createSequentialGroup()
-                        .addGap(362, 362, 362)
-                        .addComponent(jLabel20))
-                    .addGroup(automovilPanelLayout.createSequentialGroup()
-                        .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, automovilPanelLayout.createSequentialGroup()
+                        .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(automovilPanelLayout.createSequentialGroup()
-                                .addGap(263, 263, 263)
-                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(90, 90, 90))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, automovilPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(detallesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(237, 237, 237)))
-                        .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(precioReferenciaAutomovilTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(colorAutomovilTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(marcaComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(guardarAutomovilBtn)
-                                    .addComponent(guardarEditarAutomovilBtn)))
-                            .addComponent(nombreLbl3)
-                            .addGroup(automovilPanelLayout.createSequentialGroup()
-                                .addGap(1, 1, 1)
                                 .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(apellidoLbl3)
-                                    .addComponent(direccionLbl5)
+                                    .addComponent(limpiarDatosModeloBtn, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, automovilPanelLayout.createSequentialGroup()
+                                        .addComponent(eliminarModeloBtn)
+                                        .addGap(25, 25, 25)))
+                                .addGap(34, 34, 34)))
+                        .addGap(170, 170, 170))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, automovilPanelLayout.createSequentialGroup()
+                        .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(automovilPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(marcaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(automovilPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(18, 18, 18)
+                                .addComponent(nombreModeloTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(automovilPanelLayout.createSequentialGroup()
+                                .addComponent(guardarModeloBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(modificarModeloBtn)))
+                        .addGap(203, 203, 203))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, automovilPanelLayout.createSequentialGroup()
+                        .addComponent(guardarNuevoModeloLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(editarModeloLabel)
+                        .addGap(193, 193, 193)))
+                .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(automovilPanelLayout.createSequentialGroup()
+                            .addGap(38, 38, 38)
+                            .addComponent(eliminarAutomovilBtn)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(limpiarDatosAutomovilBtn)
+                            .addGap(338, 338, 338))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, automovilPanelLayout.createSequentialGroup()
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(65, 65, 65)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, automovilPanelLayout.createSequentialGroup()
+                        .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(automovilPanelLayout.createSequentialGroup()
+                                .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(automovilPanelLayout.createSequentialGroup()
+                                        .addComponent(nombreLbl3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(precioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(direccionLbl5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(modeloComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(automovilPanelLayout.createSequentialGroup()
+                                        .addComponent(apellidoLbl3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(colorAutomovilTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel14)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(kmTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel15)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(stockTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(automovilPanelLayout.createSequentialGroup()
+                                        .addComponent(guardarAutomovilBtn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(modificarAutomovilBtn))
                                     .addGroup(automovilPanelLayout.createSequentialGroup()
                                         .addComponent(telefonoLbl5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(modeloAutomovilTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(automovilPanelLayout.createSequentialGroup()
-                                        .addComponent(telefonoLbl6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                                        .addComponent(modeloMarcaAutomovilTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(anioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(automovilPanelLayout.createSequentialGroup()
+                                .addGap(58, 58, 58)
+                                .addComponent(guardarNuevoAutomovilLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(editarAutomovilLabel)))
+                        .addGap(141, 141, 141))))
         );
         automovilPanelLayout.setVerticalGroup(
             automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(automovilPanelLayout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, automovilPanelLayout.createSequentialGroup()
+                .addContainerGap(90, Short.MAX_VALUE)
                 .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(automovilPanelLayout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nombreModeloTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(guardarNuevoAutomovilLabel)
-                        .addGap(25, 25, 25)
+                        .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(marcaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(guardarModeloBtn)
+                            .addComponent(modificarModeloBtn))
+                        .addGap(52, 52, 52)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(limpiarDatosModeloBtn))
+                    .addGroup(automovilPanelLayout.createSequentialGroup()
                         .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(automovilPanelLayout.createSequentialGroup()
-                                .addComponent(editarAutomovilLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, automovilPanelLayout.createSequentialGroup()
-                                        .addComponent(nombreLbl3)
-                                        .addGap(44, 44, 44))
-                                    .addGroup(automovilPanelLayout.createSequentialGroup()
-                                        .addComponent(precioReferenciaAutomovilTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(colorAutomovilTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(apellidoLbl3))))
-                                .addGap(6, 6, 6)
-                                .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(telefonoLbl5)
-                                    .addComponent(modeloAutomovilTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(15, 15, 15)
-                                .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(direccionLbl5)
-                                    .addComponent(marcaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(10, 10, 10)
-                                .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(telefonoLbl6)
-                                    .addComponent(modeloMarcaAutomovilTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(guardarAutomovilBtn))
-                            .addGroup(automovilPanelLayout.createSequentialGroup()
-                                .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(agregarAutomovilBtn)
-                                    .addComponent(eliminarAutomovilBtn))
-                                .addGap(76, 76, 76)
-                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(guardarNuevoModeloLabel)
+                                .addComponent(editarModeloLabel))
+                            .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(guardarNuevoAutomovilLabel)
+                                .addComponent(editarAutomovilLabel)))
+                        .addGap(18, 18, 18)
+                        .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nombreLbl3)
+                            .addComponent(precioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(direccionLbl5)
+                            .addComponent(modeloComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(anioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(telefonoLbl5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(colorAutomovilTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(apellidoLbl3)
+                            .addComponent(kmTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14)
+                            .addComponent(stockTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15)
+                            .addComponent(guardarAutomovilBtn)
+                            .addComponent(modificarAutomovilBtn))
+                        .addGap(70, 70, 70)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(guardarEditarAutomovilBtn)
-                        .addGap(41, 41, 41))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, automovilPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(detallesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(automovilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(limpiarDatosAutomovilBtn)
+                            .addComponent(eliminarAutomovilBtn))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(eliminarModeloBtn)
+                .addContainerGap())
+        );
+
+        ventaPanel.setPreferredSize(new java.awt.Dimension(1351, 541));
+
+        eliminarVentaBtn.setText("Eliminar");
+        eliminarVentaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarVentaBtnActionPerformed(evt);
+            }
+        });
+
+        limpiarDatosVentaBtn.setText("Limpiar datos");
+        limpiarDatosVentaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiarDatosVentaBtnActionPerformed(evt);
+            }
+        });
+
+        editarVentaLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        editarVentaLabel.setForeground(new java.awt.Color(255, 51, 51));
+        editarVentaLabel.setText("Edite la Venta");
+
+        guardarVentaLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        guardarVentaLabel.setForeground(new java.awt.Color(0, 51, 255));
+        guardarVentaLabel.setText("Ventas Realizadas");
+
+        fechaVentaDateChooser.setDateFormatString("yyyy/MM/dd");
+
+        jLabel11.setText("Fecha:");
+
+        guardarVentaBtn.setText("Guardar");
+        guardarVentaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarVentaBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Cuotas:");
+
+        jLabel1.setText("Cliente:");
+
+        agregarNuevoVendedorLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        agregarNuevoVendedorLabel1.setText("Agregue una nueva venta:");
+
+        jLabel13.setText("Seleccione el o los autos a vender:");
+
+        cuotasTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cuotasTxtActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Monto total:");
+
+        jLabel10.setText("Vendedor:");
+
+        automovilVentaTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Marca", "Modelo", "Año", "Color", "Precio", "Km", "Stock", "Seleccionar"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        automovilVentaTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                automovilVentaTableMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(automovilVentaTable);
+        if (automovilVentaTable.getColumnModel().getColumnCount() > 0) {
+            automovilVentaTable.getColumnModel().getColumn(0).setPreferredWidth(10);
+            automovilVentaTable.getColumnModel().getColumn(1).setPreferredWidth(50);
+            automovilVentaTable.getColumnModel().getColumn(2).setPreferredWidth(50);
+            automovilVentaTable.getColumnModel().getColumn(3).setPreferredWidth(20);
+            automovilVentaTable.getColumnModel().getColumn(4).setPreferredWidth(50);
+            automovilVentaTable.getColumnModel().getColumn(5).setPreferredWidth(50);
+            automovilVentaTable.getColumnModel().getColumn(6).setPreferredWidth(20);
+            automovilVentaTable.getColumnModel().getColumn(7).setPreferredWidth(20);
+            automovilVentaTable.getColumnModel().getColumn(8).setPreferredWidth(50);
+        }
+
+        ventaTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Fecha", "Vendedor", "Cliente", "Monto", "Cuotas"
+            }
+        ));
+        ventaTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ventaTableMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(ventaTable);
+        if (ventaTable.getColumnModel().getColumnCount() > 0) {
+            ventaTable.getColumnModel().getColumn(0).setPreferredWidth(10);
+            ventaTable.getColumnModel().getColumn(4).setPreferredWidth(50);
+            ventaTable.getColumnModel().getColumn(5).setPreferredWidth(30);
+        }
+
+        modificarVentaBtn.setText("Modificar");
+        modificarVentaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarVentaBtnActionPerformed(evt);
+            }
+        });
+
+        ventaDetalleTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Marca", "Modelo", "Año", "Color", "Precio", "Km"
+            }
+        ));
+        jScrollPane9.setViewportView(ventaDetalleTable);
+        if (ventaDetalleTable.getColumnModel().getColumnCount() > 0) {
+            ventaDetalleTable.getColumnModel().getColumn(0).setPreferredWidth(70);
+            ventaDetalleTable.getColumnModel().getColumn(1).setPreferredWidth(80);
+            ventaDetalleTable.getColumnModel().getColumn(2).setPreferredWidth(20);
+            ventaDetalleTable.getColumnModel().getColumn(3).setPreferredWidth(50);
+            ventaDetalleTable.getColumnModel().getColumn(4).setPreferredWidth(50);
+            ventaDetalleTable.getColumnModel().getColumn(5).setPreferredWidth(50);
+        }
+
+        detalleLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        detalleLabel.setText("Detalle");
+
+        javax.swing.GroupLayout ventaPanelLayout = new javax.swing.GroupLayout(ventaPanel);
+        ventaPanel.setLayout(ventaPanelLayout);
+        ventaPanelLayout.setHorizontalGroup(
+            ventaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ventaPanelLayout.createSequentialGroup()
+                .addGap(285, 285, 285)
+                .addGroup(ventaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13)
+                    .addComponent(agregarNuevoVendedorLabel1)
+                    .addGroup(ventaPanelLayout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addGroup(ventaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(ventaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ventaPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(montoTotalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(149, 149, 149))
+                                .addGroup(ventaPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(clienteComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel11)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(fechaVentaDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(cuotasTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(ventaPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(vendedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(guardarVentaBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(modificarVentaBtn)
+                                .addGap(46, 46, 46))))
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(ventaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ventaPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ventaPanelLayout.createSequentialGroup()
+                        .addComponent(guardarVentaLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(editarVentaLabel)
+                        .addGap(108, 108, 108))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ventaPanelLayout.createSequentialGroup()
+                        .addComponent(detalleLabel)
+                        .addGap(199, 199, 199))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ventaPanelLayout.createSequentialGroup()
+                        .addComponent(limpiarDatosVentaBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(eliminarVentaBtn)
+                        .addGap(145, 145, 145))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ventaPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
+        );
+        ventaPanelLayout.setVerticalGroup(
+            ventaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ventaPanelLayout.createSequentialGroup()
+                .addGroup(ventaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ventaPanelLayout.createSequentialGroup()
+                        .addComponent(agregarNuevoVendedorLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel13))
+                    .addGroup(ventaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(guardarVentaLabel)
+                        .addComponent(editarVentaLabel)))
+                .addGap(11, 11, 11)
+                .addGroup(ventaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ventaPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(ventaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(montoTotalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(ventaPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(ventaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(eliminarVentaBtn)
+                            .addComponent(limpiarDatosVentaBtn))))
+                .addGroup(ventaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ventaPanelLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(ventaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ventaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(clienteComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel11))
+                            .addComponent(fechaVentaDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(ventaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cuotasTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5)))
+                        .addGap(18, 18, 18)
+                        .addGroup(ventaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(guardarVentaBtn)
+                            .addComponent(jLabel10)
+                            .addComponent(vendedorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(modificarVentaBtn)))
+                    .addGroup(ventaPanelLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(detalleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -1432,7 +1267,7 @@ public class AdministradorView extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(260, 260, 260)
-                .addComponent(cerrarSesionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(salirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(140, 140, 140)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(134, 134, 134))
@@ -1445,12 +1280,7 @@ public class AdministradorView extends javax.swing.JPanel {
                 .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(clientePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(529, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(213, 213, 213)
-                    .addComponent(marcaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(628, Short.MAX_VALUE)))
+                .addContainerGap(1136, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(583, Short.MAX_VALUE)
@@ -1460,7 +1290,12 @@ public class AdministradorView extends javax.swing.JPanel {
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(automovilPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(562, Short.MAX_VALUE)))
+                    .addContainerGap(1036, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(ventaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1469,318 +1304,121 @@ public class AdministradorView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cerrarSesionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(salirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(clientePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(93, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(53, 53, 53)
-                    .addComponent(marcaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(99, Short.MAX_VALUE)))
+                .addContainerGap(488, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(86, 86, 86)
                     .addComponent(vendedorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(141, Short.MAX_VALUE)))
+                    .addContainerGap(147, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(automovilPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(134, Short.MAX_VALUE)))
+                    .addContainerGap(474, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(ventaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    //Cargo combo box marca de la automovil
-    public void cargarComboBoxMarcaAutomovil() {
+    //Cargo combos boxs
+    public void cargarComboBoxModelo() {
 
-        List<Marca> listaMarca = marcaController.listarMarcas();
-        for(Marca marca : listaMarca){
-            marcaComboBox.addItem(marca);
+        List<Modelo> listaModelo = modeloController.listarModelos();
+        for (Modelo modelo : listaModelo) {
+            modeloComboBox.addItem(modelo);
         }
     }
-    
-    public void cargarComboBoxAuto(){
-        List<Automovil> listaAutomovil = automovilController.listarAutomovil();
-        for(Automovil automovil : listaAutomovil){
-            automovilComboBox.addItem(automovil);
+    public void cargarComboBoxCliente() {
+
+        List<Cliente> listaCliente = clienteController.listarClientes();
+        for (Cliente cliente : listaCliente) {
+            clienteComboBox.addItem(cliente);
         }
     }
+    public void cargarComboBoxVendedor() {
 
+        List<Vendedor> lista = vendedorController.listarVendedor();
+        for (Vendedor vendedor : lista) {
+            vendedorComboBox.addItem(vendedor);
+        }
+    }
 // Metodos para Inhabilitar Botones
-    public void inhabilitarBotonesMarca() {
-        eliminarMarcaBtn.setEnabled(false);
-        guardarEditarMarcaBtn.setVisible(false);
-    }
-
-    public void inhabilitarBotonesCliente() {
+    public void activarGuardarCliente() {
+//Desactivo botones y label
         eliminarClienteBtn.setEnabled(false);
-        editarClienteBtn.setEnabled(false);
-    }
-
-    public void inhabilitarBotonesVendedor() {
-        eliminarVendedorBtn.setEnabled(false);
-        editarVendedorBtn.setEnabled(false);
-    }
-    public void inhabilitarBotonesAutomovil(){
-        eliminarAutomovilBtn.setEnabled(false);
-        guardarEditarAutomovilBtn.setVisible(false);
-    }
-    public void inhabilitarBotonesAuto(){
-        eliminarAutoBtn.setEnabled(false);
-        guardarEditarAutoBtn.setVisible(false);
-    }
-//    
-
-    private void marcaTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_marcaTableMouseClicked
-        // TODO add your handling code here:
-        int filaSelected = marcaTable.getSelectedRow();
-        DefaultTableModel modeloTablaMarca = (DefaultTableModel) marcaTable.getModel();
-// Paso los valores
-        nombreMarcaTxt.setText(modeloTablaMarca.getValueAt(filaSelected, 1).toString());
-        paisDeOrigenTxt.setText(modeloTablaMarca.getValueAt(filaSelected, 2).toString());
-        // Prendo los botones de tabla
-        guardarEditarMarcaBtn.setVisible(true);
-        eliminarMarcaBtn.setEnabled(true);
-        //Apago el boton de guardar nueva marca
-        guardarAgregarNuevaMarcaBtn.setVisible(false);
-        //Activo y apago labels
-        guardarNuevaMarcaLabel.setVisible(false);
-        editarMarcaLabel.setVisible(true);
-    }//GEN-LAST:event_marcaTableMouseClicked
-
-    private void clienteTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clienteTableMouseClicked
-        int filaSelected = clienteTable.getSelectedRow();
-        DefaultTableModel modeloTablaMarca = (DefaultTableModel) clienteTable.getModel();
-        String fechaNacimiento = modeloTablaMarca.getValueAt(filaSelected, 4).toString();
-        String fechaAlta = modeloTablaMarca.getValueAt(filaSelected, 9).toString();
-        Date conversionFechaNacimiento = null, conversionFechaAlta = null;
-        try {
-            conversionFechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaNacimiento);
-            conversionFechaAlta = new SimpleDateFormat("yyyy-MM-dd").parse(fechaAlta);
-        } catch (ParseException ex) {
-            Logger.getLogger(AdministradorView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        nombreClienteTxt.setText(modeloTablaMarca.getValueAt(filaSelected, 1).toString());
-        apellidoClienteTxt.setText(modeloTablaMarca.getValueAt(filaSelected, 2).toString());
-        dniClienteTxt.setText(modeloTablaMarca.getValueAt(filaSelected, 3).toString());
-        fechaNacimientoClienteDate.setDate(conversionFechaNacimiento);
-        telefonoClienteTxt.setText(modeloTablaMarca.getValueAt(filaSelected, 5).toString());
-        direccionClienteTxt.setText(modeloTablaMarca.getValueAt(filaSelected, 6).toString());
-        ciudadClienteTxt.setText(modeloTablaMarca.getValueAt(filaSelected, 7).toString());
-        codigoPostalClienteTxt.setText(modeloTablaMarca.getValueAt(filaSelected, 8).toString());
-        fechaAltaClienteDate.setDate(conversionFechaAlta);
-        emailClienteTxt.setText(modeloTablaMarca.getValueAt(filaSelected, 10).toString());
-
-        eliminarClienteBtn.setEnabled(true);
-        editarClienteBtn.setEnabled(true);
-    }//GEN-LAST:event_clienteTableMouseClicked
-
-    private void cerrarSesionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionButtonActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_cerrarSesionButtonActionPerformed
-
-    private void editarClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarClienteBtnActionPerformed
-        //Desactivo el boton y label de guardar
-        guardarAgregarNuevoClienteBtn.setVisible(false);
-        agregarNuevoClienteLabel.setVisible(false);
-        // Activo el boton de editar y label para no generar errores de ingreso o cierre
-        guardarEditarClienteBtn.setVisible(true);
-        editarClienteLabel.setVisible(true);
-        //Abro la ventana
-        clienteDialog.setSize(640, 480);
-        clienteDialog.setLocationRelativeTo(null);//lo centra en la pantalla
-        clienteDialog.setVisible(true);
-//            jDialog1.toFront();
-        inhabilitarBotonesCliente();
-    }//GEN-LAST:event_editarClienteBtnActionPerformed
-
-    private void agregarMarcaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarMarcaBtnActionPerformed
-        //Limpio la tabla
-        marcaTable.clearSelection();
-        //Limpio los datos
-        nombreMarcaTxt.setText(null);
-        paisDeOrigenTxt.setText(null);
-        //Desactivo boton y label de editar
-        guardarEditarMarcaBtn.setVisible(false);
-        editarMarcaLabel.setVisible(false);
-        // Activo el label y boton de guardar para no generar errores de ingreso o cierre
-        guardarAgregarNuevaMarcaBtn.setVisible(true);
-        guardarNuevaMarcaLabel.setVisible(true);
-        inhabilitarBotonesMarca();
-    }//GEN-LAST:event_agregarMarcaBtnActionPerformed
-
-    private void eliminarMarcaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarMarcaBtnActionPerformed
-        int filaSelected = marcaTable.getSelectedRow();
-        DefaultTableModel modeloTablaMarca = (DefaultTableModel) marcaTable.getModel();
-        marcaController.eliminarMarca(modeloTablaMarca.getValueAt(filaSelected, 0).toString());
-        modeloTablaMarca.removeRow(filaSelected);
-        inhabilitarBotonesMarca();
-        //Limpio los datos
-        nombreMarcaTxt.setText(null);
-        paisDeOrigenTxt.setText(null);
-    }//GEN-LAST:event_eliminarMarcaBtnActionPerformed
-
-    private void eliminarClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarClienteBtnActionPerformed
-        // TODO add your handling code here:
-        int filaSelected = clienteTable.getSelectedRow();
-        DefaultTableModel modeloTablaCliente = (DefaultTableModel) clienteTable.getModel();
-        clienteController.eliminarCliente(modeloTablaCliente.getValueAt(filaSelected, 0).toString());
-        modeloTablaCliente.removeRow(filaSelected);
-        inhabilitarBotonesCliente();
-    }//GEN-LAST:event_eliminarClienteBtnActionPerformed
-
-    private void agregarClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarClienteBtnActionPerformed
-        //Limpio datos
-        nombreClienteTxt.setText(null);
-        apellidoClienteTxt.setText(null);
-        dniClienteTxt.setText(null);
-        ciudadClienteTxt.setText(null);
-        emailClienteTxt.setText(null);
-        codigoPostalClienteTxt.setText(null);
-        direccionClienteTxt.setText(null);
-        telefonoClienteTxt.setText(null);
-        fechaNacimientoClienteDate.setDate(null);
-        fechaAltaClienteDate.setDate(null);
-        //Desactivo boton y label de editar
-        guardarEditarClienteBtn.setVisible(false);
+        modificarClienteBtn.setEnabled(false);
         editarClienteLabel.setVisible(false);
-        // Activo el boton de guardar para no generar errores de ingreso o cierre
-        guardarAgregarNuevoClienteBtn.setVisible(true);
+        //Activo label y boton
+        guardarClienteBtn.setVisible(true);
         agregarNuevoClienteLabel.setVisible(true);
-        //Configuracion de la ventana
-        clienteDialog.setSize(640, 480);
-        clienteDialog.setLocationRelativeTo(null);//lo centra en la pantalla
-        clienteDialog.setVisible(true);
-        // Inhabilito los botones
-        inhabilitarBotonesCliente();
-        //Limpio la seleccion de la tabla
-        clienteTable.clearSelection();
+    }
 
-    }//GEN-LAST:event_agregarClienteBtnActionPerformed
+    public void activarGuardarVendedor() {
+//Desactivo botones y label
+        eliminarVendedorBtn.setEnabled(false);
+        modificarVendedorBtn.setEnabled(false);
+        editarVendedorLabel.setVisible(false);
+        //Activo label y boton
+        guardarVendedorBtn.setVisible(true);
+        agregarNuevoVendedorLabel.setVisible(true);        
+    }
 
-    private void clienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteBtnActionPerformed
-        // TODO add your handling code here:
-        marcaPanel.setVisible(false);
-        vendedorPanel.setVisible(false);
-        clientePanel.setVisible(true);
-    }//GEN-LAST:event_clienteBtnActionPerformed
+    public void activarGuardarAutomovil() {
+        //Desactivo botones y label
+        eliminarAutomovilBtn.setEnabled(false);
+        modificarAutomovilBtn.setEnabled(false);
+        editarAutomovilLabel.setVisible(false);
+        //Activo label y boton
+        guardarAutomovilBtn.setVisible(true);
+        guardarNuevoAutomovilLabel.setVisible(true);
+    }
 
-    private void marcasABMBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcasABMBtnActionPerformed
-        // TODO add your handling code here:
-        marcaPanel.setVisible(true);
-        clientePanel.setVisible(false);
-        vendedorPanel.setVisible(false);
-        automovilPanel.setVisible(false);
-    }//GEN-LAST:event_marcasABMBtnActionPerformed
+    public void activarGuardarModelo() {
+        //Desactivo botones y label
+        eliminarModeloBtn.setEnabled(false);
+        modificarModeloBtn.setEnabled(false);
+        editarModeloLabel.setVisible(false);
+        //Activo label y boton
+        guardarModeloBtn.setVisible(true);
+        guardarNuevoModeloLabel.setVisible(true);
+    }
+    public void activarGuardarVenta() {
+        //Desactivo botones y label
+        eliminarVentaBtn.setEnabled(false);
+        modificarVentaBtn.setEnabled(false);
+        editarVentaLabel.setVisible(false);
+        //Activo label y boton
+        guardarVentaBtn.setVisible(true);
+        guardarVentaLabel.setVisible(true);
+    }
+//Limpio campos
+    public void limpiarCamposModelo() {
+        nombreModeloTxt.setText(null);
+        marcaTxt.setText(null);
+    }
+    public void limpiarCamposVenta() {
+        cuotasTxt.setText(null);
+        montoTotalTxt.setText(null);
+    }
+    public void limpiarCamposAutomovil(){
+        precioTxt.setText(null);
+            colorAutomovilTxt.setText(null);
+            anioTxt.setText(null);
+            kmTxt.setText(null);
+            stockTxt.setText(null);
+    }
 
-    private void guardarAgregarNuevoVendedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarAgregarNuevoVendedorBtnActionPerformed
-        if (!nombreVendedorTxt.getText().equals("") && !apellidoVendedorTxt.getText().equals("")
-                && !dniVendedorTxt.getText().equals("") && !telefonoVendedorTxt.getText().equals("")
-                && !direccionVendedorTxt.getText().equals("") && !ciudadVendedorTxt.getText().equals("")
-                && !codigoPostalVendedorTxt.getText().equals("") && !legajoTxt.getText().equals("")
-                && !emailVentasTxt.getText().equals("") && !telefonoVentasTxt.getText().equals("")
-                && fechaNacimientoVendedorDate.getDate() != null) {
-            DefaultTableModel modeloTablaVendedor = (DefaultTableModel) vendedorTable.getModel();
-            int dia, mes, año;
-            Date conversionadoFechaNacimiento = null;
-            dia = fechaNacimientoVendedorDate.getCalendar().get(Calendar.DAY_OF_MONTH);
-            mes = fechaNacimientoVendedorDate.getCalendar().get(Calendar.MONTH) + 1;
-            año = fechaNacimientoVendedorDate.getCalendar().get(Calendar.YEAR);
-            String fechaNacimiento = año + "/" + mes + "/" + dia;
-            try {
-                conversionadoFechaNacimiento = new SimpleDateFormat("yyyy/MM/dd").parse(fechaNacimiento);
-            } catch (ParseException ex) {
-                Logger.getLogger(AdministradorView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            Persona persona = new Persona(conversionadoFechaNacimiento, nombreVendedorTxt.getText(),
-                    apellidoVendedorTxt.getText(), dniVendedorTxt.getText(), telefonoVendedorTxt.getText(),
-                    direccionVendedorTxt.getText(), ciudadVendedorTxt.getText(),
-                    codigoPostalVendedorTxt.getText());
-            personaController.guardarPersona(persona);
-            Vendedor vendedor = new Vendedor(persona, legajoTxt.getText(),
-                    telefonoVentasTxt.getText(), emailVentasTxt.getText());
-            vendedorController.guardarVendedor(vendedor);
-            modeloTablaVendedor.setRowCount(0);
-            cargarVendedor();
-            vendedorDialog.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(this, "Llene todos los datos por favor",
-                    "Datos vacios", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_guardarAgregarNuevoVendedorBtnActionPerformed
-
-    private void cancelarAgregarNuevoVendedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarAgregarNuevoVendedorBtnActionPerformed
-        vendedorDialog.setVisible(false);
-        vendedorTable.clearSelection();
-    }//GEN-LAST:event_cancelarAgregarNuevoVendedorBtnActionPerformed
-
-    private void guardarEditarVendedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarEditarVendedorBtnActionPerformed
-        if (!nombreVendedorTxt.getText().equals("") && !apellidoVendedorTxt.getText().equals("")
-                && !dniVendedorTxt.getText().equals("") && !telefonoVendedorTxt.getText().equals("")
-                && !direccionVendedorTxt.getText().equals("") && !ciudadVendedorTxt.getText().equals("")
-                && !codigoPostalVendedorTxt.getText().equals("") && !legajoTxt.getText().equals("")
-                && !emailVentasTxt.getText().equals("") && !telefonoVentasTxt.getText().equals("")
-                && fechaNacimientoVendedorDate.getDate() != null) {
-            DefaultTableModel modeloTablaVendedor = (DefaultTableModel) vendedorTable.getModel();
-            int dia, mes, año;
-            Date conversionadoFechaNacimiento = null;
-            dia = fechaNacimientoVendedorDate.getCalendar().get(Calendar.DAY_OF_MONTH);
-            mes = fechaNacimientoVendedorDate.getCalendar().get(Calendar.MONTH) + 1;
-            año = fechaNacimientoVendedorDate.getCalendar().get(Calendar.YEAR);
-            String fechaNacimiento = año + "/" + mes + "/" + dia;
-            try {
-                conversionadoFechaNacimiento = new SimpleDateFormat("yyyy/MM/dd").parse(fechaNacimiento);
-            } catch (ParseException ex) {
-                Logger.getLogger(AdministradorView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            vendedorController.editar(vendedorTable.getValueAt(vendedorTable.getSelectedRow(), 0).toString(),
-                    nombreVendedorTxt.getText(), apellidoVendedorTxt.getText(),
-                    dniVendedorTxt.getText(), telefonoVendedorTxt.getText(),
-                    direccionVendedorTxt.getText(), ciudadVendedorTxt.getText(),
-                    codigoPostalVendedorTxt.getText(), emailVentasTxt.getText(),
-                    conversionadoFechaNacimiento, legajoTxt.getText(), telefonoVentasTxt.getText());
-            vendedorDialog.setVisible(false);
-            modeloTablaVendedor.setRowCount(0);
-            cargarVendedor();
-            inhabilitarBotonesVendedor();
-        } else {
-            JOptionPane.showMessageDialog(this, "Llene todos los datos por favor",
-                    "Datos vacios", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_guardarEditarVendedorBtnActionPerformed
-
-    private void editarVendedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarVendedorBtnActionPerformed
-        //Desactivo el boton y label de guardar
-        guardarAgregarNuevoVendedorBtn.setVisible(false);
-        agregarNuevoVendedorLabel.setVisible(false);
-        // Activo el boton de editar y label para no generar errores de ingreso o cierre
-        guardarEditarVendedorBtn.setVisible(true);
-        editarVendedorLabel.setVisible(true);
-        //Abro la ventana
-        vendedorDialog.setSize(650, 480);
-        vendedorDialog.setLocationRelativeTo(null);//lo centra en la pantalla
-        vendedorDialog.setVisible(true);
-//        vendedorDialog.toFront();
-
-        inhabilitarBotonesVendedor();
-    }//GEN-LAST:event_editarVendedorBtnActionPerformed
-
-    private void eliminarVendedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarVendedorBtnActionPerformed
-        int filaSelected = vendedorTable.getSelectedRow();
-        DefaultTableModel modeloTablaVendedor = (DefaultTableModel) vendedorTable.getModel();
-        vendedorController.eliminarVendedor(modeloTablaVendedor.getValueAt(filaSelected, 0).toString());
-        modeloTablaVendedor.removeRow(filaSelected);
-        inhabilitarBotonesVendedor();
-    }//GEN-LAST:event_eliminarVendedorBtnActionPerformed
-
-    private void agregarVendedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarVendedorBtnActionPerformed
-        //Limpio los datos
+    public void limpiarCamposVendedor(){
         nombreVendedorTxt.setText(null);
         apellidoVendedorTxt.setText(null);
         dniVendedorTxt.setText(null);
@@ -1792,21 +1430,284 @@ public class AdministradorView extends javax.swing.JPanel {
         telefonoVentasTxt.setText(null);
         emailVentasTxt.setText(null);
         legajoTxt.setText(null);
-        //Desactivo boton y label de editar
-        guardarEditarVendedorBtn.setVisible(false);
-        editarVendedorLabel.setVisible(false);
-        // Activo el boton de guardar para no generar errores de ingreso o cierre
-        guardarAgregarNuevoVendedorBtn.setVisible(true);
-        agregarNuevoVendedorLabel.setVisible(true);
-        //Configuracion de la ventana
-        vendedorDialog.setSize(650, 480);
-        vendedorDialog.setLocationRelativeTo(null);//lo centra en la pantalla
-        vendedorDialog.setVisible(true);
-    }//GEN-LAST:event_agregarVendedorBtnActionPerformed
+    }
+    public void limpiarCamposCliente(){
+        nombreClienteTxt.setText(null);
+        apellidoClienteTxt.setText(null);
+        dniClienteTxt.setText(null);
+        ciudadClienteTxt.setText(null);
+        emailClienteTxt.setText(null);
+        codigoPostalClienteTxt.setText(null);
+        direccionClienteTxt.setText(null);
+        telefonoClienteTxt.setText(null);
+        fechaNacimientoClienteDate.setDate(null);
+        fechaAltaClienteDate.setDate(null);
+    }
+    private void modeloTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modeloTableMouseClicked
+// Configuro la tabla
+        int filaSelected = modeloTable.getSelectedRow();
+        DefaultTableModel modeloTabla = (DefaultTableModel) modeloTable.getModel();
+// Paso los valores
+        nombreModeloTxt.setText(modeloTabla.getValueAt(filaSelected, 2).toString());
+        marcaTxt.setText(modeloTabla.getValueAt(filaSelected, 1).toString());
+// Prendo y apago los botones de tabla
+        modificarModeloBtn.setEnabled(true);
+        eliminarModeloBtn.setEnabled(true);
+        guardarModeloBtn.setVisible(false);
+//Activo y apago labels
+        guardarNuevoModeloLabel.setVisible(false);
+        editarModeloLabel.setVisible(true);
+    }//GEN-LAST:event_modeloTableMouseClicked
 
-    private void vendedorTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vendedorTableMouseClicked
+    private void clienteTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clienteTableMouseClicked
+// Configuro el modelo de la tabla
+        int filaSelected = clienteTable.getSelectedRow();
+        DefaultTableModel modeloTabla = (DefaultTableModel) clienteTable.getModel();
+// Paso los valores
+        String fechaNacimiento = modeloTabla.getValueAt(filaSelected, 4).toString();
+        String fechaAlta = modeloTabla.getValueAt(filaSelected, 9).toString();
+        Date conversionFechaNacimiento = null, conversionFechaAlta = null;
+        try {
+            conversionFechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaNacimiento);
+            conversionFechaAlta = new SimpleDateFormat("yyyy-MM-dd").parse(fechaAlta);
+        } catch (ParseException ex) {
+            Logger.getLogger(AdministradorView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        nombreClienteTxt.setText(modeloTabla.getValueAt(filaSelected, 1).toString());
+        apellidoClienteTxt.setText(modeloTabla.getValueAt(filaSelected, 2).toString());
+        dniClienteTxt.setText(modeloTabla.getValueAt(filaSelected, 3).toString());
+        fechaNacimientoClienteDate.setDate(conversionFechaNacimiento);
+        telefonoClienteTxt.setText(modeloTabla.getValueAt(filaSelected, 5).toString());
+        direccionClienteTxt.setText(modeloTabla.getValueAt(filaSelected, 6).toString());
+        ciudadClienteTxt.setText(modeloTabla.getValueAt(filaSelected, 7).toString());
+        codigoPostalClienteTxt.setText(modeloTabla.getValueAt(filaSelected, 8).toString());
+        fechaAltaClienteDate.setDate(conversionFechaAlta);
+        emailClienteTxt.setText(modeloTabla.getValueAt(filaSelected, 10).toString());
+// Prendo los botones y label de Editado
+        eliminarClienteBtn.setEnabled(true);
+        modificarClienteBtn.setEnabled(true);
+        editarClienteLabel.setVisible(true);
+//Apago el boton y label de Guardado
+        guardarClienteBtn.setVisible(false);
+        agregarNuevoClienteLabel.setVisible(false);
+        
+    }//GEN-LAST:event_clienteTableMouseClicked
+
+    private void salirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirButtonActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_salirButtonActionPerformed
+
+    private void limpiarDatosModeloBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarDatosModeloBtnActionPerformed
+        //Limpio la tabla
+        modeloTable.clearSelection();
+        //Limpio los datos
+        limpiarCamposModelo();
+        activarGuardarModelo();
+    }//GEN-LAST:event_limpiarDatosModeloBtnActionPerformed
+
+    private void eliminarModeloBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarModeloBtnActionPerformed
+
+        try {
+            // Establesco el modelo de la tabla
+            int filaSelected = modeloTable.getSelectedRow();
+            DefaultTableModel modeloTabla = (DefaultTableModel) modeloTable.getModel();
+            //Llamo al metodo del controlador de modelo para guardar el nuevo modelo
+            modeloController.eliminar(modeloTabla.getValueAt(filaSelected, 0).toString());
+            //Limpio la tabla
+            modeloTabla.removeRow(filaSelected);
+            // inhabilito el boton de eliminar
+            eliminarModeloBtn.setEnabled(false);
+            //Limpio los datos
+            limpiarCamposModelo();
+// Eliminar el editado
+            activarGuardarModelo();
+//Refresco el ComboBox
+        modeloComboBox.removeAllItems();
+        cargarComboBoxModelo();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Esta Modelo ya tiene un auto o mas creados con el, debe eliminarlos para poder borrar este Modelo", "Este Modelo no se puede borrar", JOptionPane.WARNING_MESSAGE);
+            // Limpio la tabla
+            modeloTable.clearSelection();
+            activarGuardarModelo();
+            //Limpio los datos
+            limpiarCamposModelo();
+        }
+    }//GEN-LAST:event_eliminarModeloBtnActionPerformed
+
+    private void eliminarClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarClienteBtnActionPerformed
+          // Configuracion de la tabla        
+        int filaSelected = clienteTable.getSelectedRow();
+        DefaultTableModel modeloTablaCliente = (DefaultTableModel) clienteTable.getModel();
+// Llamo al metodo Eliminar del controlador de Cliente
+        clienteController.eliminarCliente(modeloTablaCliente.getValueAt(filaSelected, 0).toString());
+        modeloTablaCliente.removeRow(filaSelected);
+        //Activo la configuracion de la ventana Guardar Cliente, apago las opciones de eliminar y editar
+        activarGuardarCliente();
+//Limpio los Campos
+            limpiarCamposCliente(); 
+        clienteTable.clearSelection();
+//Refresco el ComboBox
+        vendedorComboBox.removeAllItems();
+        cargarComboBoxVendedor();
+    }//GEN-LAST:event_eliminarClienteBtnActionPerformed
+
+    private void limpiarDatosClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarDatosClienteBtnActionPerformed
+//Limpio los campos
+        limpiarCamposCliente();
+//Activo la configuracion de la ventana Guardar Auto, apago las opciones de editar
+        activarGuardarCliente();
+        //Limpio la seleccion de la tabla
+        clienteTable.clearSelection();
+    }//GEN-LAST:event_limpiarDatosClienteBtnActionPerformed
+
+    private void clienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteBtnActionPerformed
+// Apago paneles
+        vendedorPanel.setVisible(false);
+        automovilPanel.setVisible(false);
+        ventaPanel.setVisible(false);
+// Prendo panel
+        clientePanel.setVisible(true);
+//Limpio tablas
+        automovilTable.clearSelection();
+        vendedorTable.clearSelection();
+        clienteTable.clearSelection();
+        automovilVentaTable.clearSelection();
+//Limpio campos
+        limpiarCamposAutomovil();
+        limpiarCamposVendedor();
+        limpiarCamposCliente();
+//        limpiarCamposVenta();
+//Activo la configuracion de la ventana Guardar Modelo, apago las opciones de editar
+        activarGuardarAutomovil();
+        activarGuardarVendedor();
+        activarGuardarCliente();
+//        activarGuardarVenta();
+    }//GEN-LAST:event_clienteBtnActionPerformed
+
+    private void guardarVendedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarVendedorBtnActionPerformed
+// Pregunto si esten los campos completados necesarios
+        if (!nombreVendedorTxt.getText().equals("") && !apellidoVendedorTxt.getText().equals("")
+                && !dniVendedorTxt.getText().equals("") && !telefonoVendedorTxt.getText().equals("")
+                && !direccionVendedorTxt.getText().equals("") && !ciudadVendedorTxt.getText().equals("")
+                && !codigoPostalVendedorTxt.getText().equals("") && !legajoTxt.getText().equals("")
+                && !emailVentasTxt.getText().equals("") && !telefonoVentasTxt.getText().equals("")
+                && fechaNacimientoVendedorDate.getDate() != null) {
+// Establesco el modelo de la tabla
+            DefaultTableModel modeloTablaVendedor = (DefaultTableModel) vendedorTable.getModel();
+// Convierto variables para la fecha
+            int dia, mes, año;
+            Date conversionadoFechaNacimiento = null;
+            dia = fechaNacimientoVendedorDate.getCalendar().get(Calendar.DAY_OF_MONTH);
+            mes = fechaNacimientoVendedorDate.getCalendar().get(Calendar.MONTH) + 1;
+            año = fechaNacimientoVendedorDate.getCalendar().get(Calendar.YEAR);
+            String fechaNacimiento = año + "/" + mes + "/" + dia;
+            try {
+                conversionadoFechaNacimiento = new SimpleDateFormat("yyyy/MM/dd").parse(fechaNacimiento);
+            } catch (ParseException ex) {
+                Logger.getLogger(AdministradorView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+//Creo los objetos para mandarlo a guardar a base de datos con el controlador
+            Persona persona = new Persona(conversionadoFechaNacimiento, nombreVendedorTxt.getText(),
+                    apellidoVendedorTxt.getText(), dniVendedorTxt.getText(), telefonoVendedorTxt.getText(),
+                    direccionVendedorTxt.getText(), ciudadVendedorTxt.getText(),
+                    codigoPostalVendedorTxt.getText());
+            personaController.guardarPersona(persona);
+            Vendedor vendedor = new Vendedor(persona, legajoTxt.getText(),
+                    telefonoVentasTxt.getText(), emailVentasTxt.getText());
+//Llamo al controlador para guardar
+            vendedorController.guardarVendedor(vendedor);
+// Limpio la tabla y refresco  
+            modeloTablaVendedor.setRowCount(0);
+            cargarVendedor();
+//Limpio los campos
+        limpiarCamposVendedor();
+//Refresco el ComboBox
+        vendedorComboBox.removeAllItems();
+        cargarComboBoxVendedor();
+        } else {
+            JOptionPane.showMessageDialog(this, "Llene todos los datos por favor",
+                    "Datos vacios", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_guardarVendedorBtnActionPerformed
+
+    private void modificarVendedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarVendedorBtnActionPerformed
+// Pregunto si esten los campos completados necesarios   
+        if (!nombreVendedorTxt.getText().equals("") && !apellidoVendedorTxt.getText().equals("")
+                && !dniVendedorTxt.getText().equals("") && !telefonoVendedorTxt.getText().equals("")
+                && !direccionVendedorTxt.getText().equals("") && !ciudadVendedorTxt.getText().equals("")
+                && !codigoPostalVendedorTxt.getText().equals("") && !legajoTxt.getText().equals("")
+                && !emailVentasTxt.getText().equals("") && !telefonoVentasTxt.getText().equals("")
+                && fechaNacimientoVendedorDate.getDate() != null) {
+// Establesco el modelo de la tabla
+            DefaultTableModel modeloTablaVendedor = (DefaultTableModel) vendedorTable.getModel();
+// Convierto los datos de la fecha
+            int dia, mes, año;
+            Date conversionadoFechaNacimiento = null;
+            dia = fechaNacimientoVendedorDate.getCalendar().get(Calendar.DAY_OF_MONTH);
+            mes = fechaNacimientoVendedorDate.getCalendar().get(Calendar.MONTH) + 1;
+            año = fechaNacimientoVendedorDate.getCalendar().get(Calendar.YEAR);
+            String fechaNacimiento = año + "/" + mes + "/" + dia;
+            try {
+                conversionadoFechaNacimiento = new SimpleDateFormat("yyyy/MM/dd").parse(fechaNacimiento);
+            } catch (ParseException ex) {
+                Logger.getLogger(AdministradorView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+//Llamo al metodo del controlador de Vendedor para guardar
+            vendedorController.editar(vendedorTable.getValueAt(vendedorTable.getSelectedRow(), 0).toString(),
+                    nombreVendedorTxt.getText(), apellidoVendedorTxt.getText(),
+                    dniVendedorTxt.getText(), telefonoVendedorTxt.getText(),
+                    direccionVendedorTxt.getText(), ciudadVendedorTxt.getText(),
+                    codigoPostalVendedorTxt.getText(), emailVentasTxt.getText(),
+                    conversionadoFechaNacimiento, legajoTxt.getText(), telefonoVentasTxt.getText());
+// Limpio la tabla y refresco              
+            modeloTablaVendedor.setRowCount(0);
+            cargarVendedor();
+//Activo la configuracion de la ventana Guardar Auto, apago las opciones de editar            
+            activarGuardarVendedor();
+//Limpio los campos
+        limpiarCamposVendedor();  
+//Refresco el ComboBox
+        vendedorComboBox.removeAllItems();
+        cargarComboBoxVendedor();
+        } else {
+            JOptionPane.showMessageDialog(this, "Llene todos los datos por favor",
+                    "Datos vacios", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_modificarVendedorBtnActionPerformed
+
+    private void eliminarVendedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarVendedorBtnActionPerformed
+// Configuracion de la tabla   
         int filaSelected = vendedorTable.getSelectedRow();
         DefaultTableModel modeloTablaVendedor = (DefaultTableModel) vendedorTable.getModel();
+// Llamo al metodo Eliminar del controlador de Automovil      
+        vendedorController.eliminarVendedor(modeloTablaVendedor.getValueAt(filaSelected, 0).toString());
+// Limpio la tabla
+        modeloTablaVendedor.removeRow(filaSelected);
+        vendedorTable.clearSelection();
+//Activo la configuracion de la ventana Guardar Vendedor, apago las opciones de eliminar y editar
+        activarGuardarVendedor();
+//Limpio los Campos
+            limpiarCamposVendedor();
+//Refresco el ComboBox
+        vendedorComboBox.removeAllItems();
+        cargarComboBoxVendedor();
+    }//GEN-LAST:event_eliminarVendedorBtnActionPerformed
+
+    private void limpiarDatosVendedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarDatosVendedorBtnActionPerformed
+//Limpio la tabla
+        vendedorTable.clearSelection();
+//Limpio los campos
+        limpiarCamposVendedor();
+//Activo la configuracion de la ventana Guardar Auto, apago las opciones de editar
+        activarGuardarVendedor();
+    }//GEN-LAST:event_limpiarDatosVendedorBtnActionPerformed
+
+    private void vendedorTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vendedorTableMouseClicked
+// Configuro el modelo de la tabla
+        int filaSelected = vendedorTable.getSelectedRow();
+        DefaultTableModel modeloTablaVendedor = (DefaultTableModel) vendedorTable.getModel();
+// Paso los valores
         String fechaNacimiento = modeloTablaVendedor.getValueAt(filaSelected, 4).toString();
         Date conversionFechaNacimiento = null;
         try {
@@ -1825,29 +1726,49 @@ public class AdministradorView extends javax.swing.JPanel {
         legajoTxt.setText(modeloTablaVendedor.getValueAt(filaSelected, 9).toString());
         telefonoVentasTxt.setText(modeloTablaVendedor.getValueAt(filaSelected, 10).toString());
         emailVentasTxt.setText(modeloTablaVendedor.getValueAt(filaSelected, 11).toString());
-
+//Apago el boton y label de Guardado
+        guardarVendedorBtn.setVisible(false);
+        agregarNuevoVendedorLabel.setVisible(false);
+// Prendo los botones y label de Editado
         eliminarVendedorBtn.setEnabled(true);
-        editarVendedorBtn.setEnabled(true);
+        modificarVendedorBtn.setEnabled(true);
+        editarVendedorLabel.setVisible(true);
     }//GEN-LAST:event_vendedorTableMouseClicked
 
     private void vendedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendedorBtnActionPerformed
-        marcaPanel.setVisible(false);
+// Apago paneles
         clientePanel.setVisible(false);
-        vendedorPanel.setVisible(true);
         automovilPanel.setVisible(false);
+        ventaPanel.setVisible(false);
+// Prendo panel
+        vendedorPanel.setVisible(true);
+//Limpio tablas
+        automovilTable.clearSelection();
+        vendedorTable.clearSelection();
+        clienteTable.clearSelection();
+        automovilVentaTable.clearSelection();
+//Limpio campos
+        limpiarCamposAutomovil();
+        limpiarCamposVendedor();
+        limpiarCamposCliente();
+//        limpiarCamposVenta();
+//Activo la configuracion de la ventana Guardar Modelo, apago las opciones de editar
+        activarGuardarAutomovil();
+        activarGuardarVendedor();
+        activarGuardarCliente();
+//        activarGuardarVenta();
     }//GEN-LAST:event_vendedorBtnActionPerformed
 
-    private void clienteDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_clienteDialogWindowClosing
-        clienteTable.clearSelection();
-    }//GEN-LAST:event_clienteDialogWindowClosing
-
-    private void guardarEditarClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarEditarClienteBtnActionPerformed
+    private void modificarClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarClienteBtnActionPerformed
+// Pregunto si esten los campos completados necesarios         
         if (!nombreClienteTxt.getText().equals("") && !apellidoClienteTxt.getText().equals("")
                 && !dniClienteTxt.getText().equals("") && !telefonoClienteTxt.getText().equals("")
                 && !direccionClienteTxt.getText().equals("") && !ciudadClienteTxt.getText().equals("")
                 && !codigoPostalClienteTxt.getText().equals("") && !emailClienteTxt.getText().equals("")
                 && fechaNacimientoClienteDate.getDate() != null && fechaAltaClienteDate.getDate() != null) {
+// Establesco el modelo de la tabla
             DefaultTableModel modeloTablaCliente = (DefaultTableModel) clienteTable.getModel();
+// Convierto los datos de la fecha
             int dia, dia2, mes, mes2, año, año2;
             Date conversionadoFechaNacimiento = null, conversionadoFechaAlta = null;
             dia = fechaNacimientoClienteDate.getCalendar().get(Calendar.DAY_OF_MONTH);
@@ -1864,36 +1785,39 @@ public class AdministradorView extends javax.swing.JPanel {
             } catch (ParseException ex) {
                 Logger.getLogger(AdministradorView.class.getName()).log(Level.SEVERE, null, ex);
             }
+//Llamo al metodo del controlador de Cliente para guardar
             clienteController.editar(clienteTable.getValueAt(clienteTable.getSelectedRow(), 0).toString(),
                     nombreClienteTxt.getText(), apellidoClienteTxt.getText(),
                     dniClienteTxt.getText(), telefonoClienteTxt.getText(),
                     direccionClienteTxt.getText(), ciudadClienteTxt.getText(),
                     codigoPostalClienteTxt.getText(), emailClienteTxt.getText(),
                     conversionadoFechaNacimiento, conversionadoFechaAlta);
-            clienteDialog.setVisible(false);
+// Limpio la tabla y refresco 
             modeloTablaCliente.setRowCount(0);
             cargarClientes();
-            inhabilitarBotonesCliente();
+//Activo la configuracion de la ventana Guardar Cliente, apago las opciones de editar            
+            activarGuardarCliente();
+//Limpio los campos
+        limpiarCamposCliente();   
+//Refresco el ComboBox
+        clienteComboBox.removeAllItems();
+        cargarComboBoxCliente();
         } else {
             JOptionPane.showMessageDialog(this, "Llene todos los datos por favor",
                     "Datos vacios", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_guardarEditarClienteBtnActionPerformed
+    }//GEN-LAST:event_modificarClienteBtnActionPerformed
 
-    private void cancelarAgregarNuevoClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarAgregarNuevoClienteBtnActionPerformed
-        // TODO add your handling code here:
-        clienteDialog.setVisible(false);
-        clienteTable.clearSelection();
-    }//GEN-LAST:event_cancelarAgregarNuevoClienteBtnActionPerformed
-
-    private void guardarAgregarNuevoClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarAgregarNuevoClienteBtnActionPerformed
-        // TODO add your handling code here:
+    private void guardarClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarClienteBtnActionPerformed
+// Pregunto si estan los campos completados necesarios
         if (!nombreClienteTxt.getText().equals("") && !apellidoClienteTxt.getText().equals("")
                 && !dniClienteTxt.getText().equals("") && !telefonoClienteTxt.getText().equals("")
                 && !direccionClienteTxt.getText().equals("") && !ciudadClienteTxt.getText().equals("")
                 && !codigoPostalClienteTxt.getText().equals("") && !emailClienteTxt.getText().equals("")
                 && fechaNacimientoClienteDate.getDate() != null && fechaAltaClienteDate.getDate() != null) {
+// Establesco el modelo de la tabla
             DefaultTableModel modeloTablaCliente = (DefaultTableModel) clienteTable.getModel();
+// Convierto variables para la fecha
             int dia, dia2, mes, mes2, año, año2;
             Date conversionadoFechaNacimiento = null, conversionadoFechaAlta = null;
             dia = fechaNacimientoClienteDate.getCalendar().get(Calendar.DAY_OF_MONTH);
@@ -1910,288 +1834,396 @@ public class AdministradorView extends javax.swing.JPanel {
             } catch (ParseException ex) {
                 Logger.getLogger(AdministradorView.class.getName()).log(Level.SEVERE, null, ex);
             }
+//Creo los objetos para mandarlo a guardar a base de datos con el controlador            
             Persona persona = new Persona(conversionadoFechaNacimiento, nombreClienteTxt.getText(),
                     apellidoClienteTxt.getText(), dniClienteTxt.getText(), telefonoClienteTxt.getText(),
                     direccionClienteTxt.getText(), ciudadClienteTxt.getText(),
                     codigoPostalClienteTxt.getText());
+//Llamo al controlador para guardar
             personaController.guardarPersona(persona);
             Cliente cliente = new Cliente(persona, conversionadoFechaAlta,
                     emailClienteTxt.getText());
             clienteController.guardarCliente(cliente);
+// Limpio la tabla y refresco  
             modeloTablaCliente.setRowCount(0);
             cargarClientes();
-            clienteDialog.setVisible(false);
+//Limpio los campos
+        limpiarCamposCliente();
+//Refresco el ComboBox
+        clienteComboBox.removeAllItems();
+        cargarComboBoxCliente();
         } else {
             JOptionPane.showMessageDialog(this, "Llene todos los datos por favor",
                     "Datos vacios", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_guardarAgregarNuevoClienteBtnActionPerformed
-
-    private void vendedorDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_vendedorDialogWindowClosing
-        vendedorTable.clearSelection();      
-    }//GEN-LAST:event_vendedorDialogWindowClosing
+    }//GEN-LAST:event_guardarClienteBtnActionPerformed
 
     private void autosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autosBtnActionPerformed
-        marcaPanel.setVisible(false);
+// Apago paneles
         clientePanel.setVisible(false);
-        automovilPanel.setVisible(true);
         vendedorPanel.setVisible(false);
-        //Refresco el ComboBox
-        marcaComboBox.removeAllItems();
-        cargarComboBoxMarcaAutomovil();
+        ventaPanel.setVisible(false);
+// Prendo panel
+        automovilPanel.setVisible(true);
+//Limpio tablas
+        automovilTable.clearSelection();
+        vendedorTable.clearSelection();
+        clienteTable.clearSelection();
+        automovilVentaTable.clearSelection();
+//Limpio campos
+        limpiarCamposAutomovil();
+        limpiarCamposVendedor();
+        limpiarCamposCliente();
+//        limpiarCamposVenta();
+//Activo la configuracion de la ventana Guardar Modelo, apago las opciones de editar
+        activarGuardarAutomovil();
+        activarGuardarVendedor();
+        activarGuardarCliente();
+//        activarGuardarVenta();
     }//GEN-LAST:event_autosBtnActionPerformed
 
     private void eliminarAutomovilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarAutomovilBtnActionPerformed
         try {
+// Configuracion de la tabla            
             int filaSelected = automovilTable.getSelectedRow();
-        DefaultTableModel modeloTablaAutomovil = (DefaultTableModel) automovilTable.getModel();
-        automovilController.eliminarAutomovil(modeloTablaAutomovil.getValueAt(filaSelected, 0).toString());
-        modeloTablaAutomovil.removeRow(filaSelected);
-        inhabilitarBotonesAutomovil();
-        //Limpio los datos
-        precioReferenciaAutomovilTxt.setText(null);
-        colorAutomovilTxt.setText(null);
-        modeloAutomovilTxt.setText(null);
-        modeloMarcaAutomovilTxt.setText(null);
+            DefaultTableModel modeloTablaAutomovil = (DefaultTableModel) automovilTable.getModel();
+// Llamo al metodo Eliminar del controlador de Automovil            
+            automovilController.eliminarAutomovil(modeloTablaAutomovil.getValueAt(filaSelected, 0).toString());
+// Limpio la tabla Automovil            
+            modeloTablaAutomovil.removeRow(filaSelected);
+//Activo la configuracion de la ventana Guardar Automovil, apago las opciones de eliminar y editar
+        activarGuardarAutomovil();
+//Limpio los Campos
+            limpiarCamposAutomovil();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Este automovil ya tiene un auto o mas creados con el, debe eliminarlos para poder borrar este automovil", "Este automovil no se puede borrar", JOptionPane.WARNING_MESSAGE);
+//Limpio la tabla
             automovilTable.clearSelection();
-            inhabilitarBotonesAutomovil();
-            precioReferenciaAutomovilTxt.setText(null);
-        colorAutomovilTxt.setText(null);
-        modeloAutomovilTxt.setText(null);
-        modeloMarcaAutomovilTxt.setText(null);
-        editarAutomovilLabel.setVisible(false);
-        guardarNuevoAutomovilLabel.setVisible(true);
-        guardarAutomovilBtn.setVisible(true);
+//Limpio los campos
+        limpiarCamposAutomovil();
         }
-        
+//Refresco tabla
+        DefaultTableModel modeloTablaAutomovilVenta = (DefaultTableModel) automovilVentaTable.getModel();
+            modeloTablaAutomovilVenta.setRowCount(0);
+            cargarAutomovilesVenta();
     }//GEN-LAST:event_eliminarAutomovilBtnActionPerformed
 
-    private void agregarAutomovilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarAutomovilBtnActionPerformed
-        //Limpio la tabla
+    private void limpiarDatosAutomovilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarDatosAutomovilBtnActionPerformed
+//Limpio la tabla
         automovilTable.clearSelection();
-        //Limpio los datos
-        precioReferenciaAutomovilTxt.setText(null);
-        colorAutomovilTxt.setText(null);
-        modeloAutomovilTxt.setText(null);
-        modeloMarcaAutomovilTxt.setText(null);
-        //Desactivo boton y label de editar
-        guardarEditarAutomovilBtn.setVisible(false);
-        editarAutomovilLabel.setVisible(false);
-        // Activo el label y boton de guardar para no generar errores de ingreso o cierre
-        guardarAutomovilBtn.setVisible(true);
-        guardarNuevoAutomovilLabel.setVisible(true);
-        inhabilitarBotonesAutomovil();
-    }//GEN-LAST:event_agregarAutomovilBtnActionPerformed
+//Limpio los campos
+        limpiarCamposAutomovil();
+//Activo la configuracion de la ventana Guardar Auto, apago las opciones de editar
+        activarGuardarAutomovil();
+    }//GEN-LAST:event_limpiarDatosAutomovilBtnActionPerformed
 
     private void automovilTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_automovilTableMouseClicked
-        // Configuro el modelo de la tabla
+// Configuro el modelo de la tabla
         int filaSelected = automovilTable.getSelectedRow();
         DefaultTableModel modeloTablaAutomovil = (DefaultTableModel) automovilTable.getModel();
 // Paso los valores
-        precioReferenciaAutomovilTxt.setText(modeloTablaAutomovil.getValueAt(filaSelected, 1).toString());
-        colorAutomovilTxt.setText(modeloTablaAutomovil.getValueAt(filaSelected, 2).toString());
-        modeloAutomovilTxt.setText(modeloTablaAutomovil.getValueAt(filaSelected, 3).toString());
-        marcaComboBox.getModel().setSelectedItem(modeloTablaAutomovil.getValueAt(filaSelected, 4));
-        modeloMarcaAutomovilTxt.setText(modeloTablaAutomovil.getValueAt(filaSelected, 5).toString());
-        // Prendo los botones de tabla
-        guardarEditarAutomovilBtn.setVisible(true);
+        precioTxt.setText(modeloTablaAutomovil.getValueAt(filaSelected, 6).toString());
+        colorAutomovilTxt.setText(modeloTablaAutomovil.getValueAt(filaSelected, 5).toString());
+        anioTxt.setText(modeloTablaAutomovil.getValueAt(filaSelected, 4).toString());
+        Modelo modelo = new Modelo();
+        modelo.setNombre(modeloTablaAutomovil.getValueAt(filaSelected, 3).toString());
+        modelo.setModeloid(Long.valueOf(modeloTablaAutomovil.getValueAt(filaSelected, 1).toString()));
+        modelo.setMarca(modeloTablaAutomovil.getValueAt(filaSelected, 2).toString());
+        modeloComboBox.getModel().setSelectedItem(modelo);
+        kmTxt.setText(modeloTablaAutomovil.getValueAt(filaSelected, 7).toString());
+        stockTxt.setText(modeloTablaAutomovil.getValueAt(filaSelected, 8).toString());
+        
+// Prendo los botones de tabla
+        modificarAutomovilBtn.setEnabled(true);
         eliminarAutomovilBtn.setEnabled(true);
-        //Apago el boton de guardar nueva marca
+        //Apago el boton de guardar nuevo modelo
         guardarAutomovilBtn.setVisible(false);
-        //Activo y apago labels
+//Activo y apago labels
         guardarNuevoAutomovilLabel.setVisible(false);
         editarAutomovilLabel.setVisible(true);
     }//GEN-LAST:event_automovilTableMouseClicked
 
-    private void guardarAgregarNuevaMarcaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarAgregarNuevaMarcaBtnActionPerformed
-        DefaultTableModel modeloTablaMarca = (DefaultTableModel) marcaTable.getModel();
-        if (!nombreMarcaTxt.getText().equals("")) {
-            marcaController.guardarMarca(nombreMarcaTxt.getText(),
-                    paisDeOrigenTxt.getText());
-            modeloTablaMarca.setRowCount(0);
-            cargarMarcas();
+    private void guardarModeloBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarModeloBtnActionPerformed
+// Establesco el modelo de la tabla
+        DefaultTableModel modeloTabla = (DefaultTableModel) modeloTable.getModel();
+// Pregunto si esten los campos completados necesarios
+        if (!nombreModeloTxt.getText().equals("")&& !marcaTxt.getText().equals("")) {
+//Llamo al metodo del controlador de modelo para guardar el nuevo modelo
+            modeloController.guardar(marcaTxt.getText(),
+                    nombreModeloTxt.getText());
+// Limpio la tabla y refresco
+            modeloTabla.setRowCount(0);
+            cargarModelo();
+//Limpie los campos
+        limpiarCamposModelo();
+//Refresco el ComboBox
+        modeloComboBox.removeAllItems();
+        cargarComboBoxModelo();
         } else {
-            JOptionPane.showMessageDialog(this, "Ingrese el nombre de la Marca", "Dato incompleto", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ingrese el nombre del Modelo", "Dato incompleto", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_guardarAgregarNuevaMarcaBtnActionPerformed
+    }//GEN-LAST:event_guardarModeloBtnActionPerformed
 
-    private void guardarEditarMarcaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarEditarMarcaBtnActionPerformed
-        DefaultTableModel modeloTablaMarca = (DefaultTableModel) marcaTable.getModel();
-        if (!nombreMarcaTxt.getText().equals("")) {
-            marcaController.editarMarca(marcaTable.getValueAt(marcaTable.getSelectedRow(), 0).toString(),
-                    nombreMarcaTxt.getText(), paisDeOrigenTxt.getText());
-            modeloTablaMarca.setRowCount(0);
-            cargarMarcas();
-            inhabilitarBotonesMarca();
+    private void modificarModeloBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarModeloBtnActionPerformed
+// Configuro el modelo de la tabla
+        DefaultTableModel modeloTabla = (DefaultTableModel) modeloTable.getModel();
+//Pregunto si esten los campos completados necesarios
+        if (!nombreModeloTxt.getText().equals("")&& !marcaTxt.getText().equals("")) {
+            modeloController.editar(modeloTable.getValueAt(modeloTable.getSelectedRow(), 0).toString(),
+                    marcaTxt.getText(),
+                    nombreModeloTxt.getText());
+            modeloTabla.setRowCount(0);
+            cargarModelo();
+            activarGuardarModelo();
             //Limpio los datos
-            nombreMarcaTxt.setText(null);
-            paisDeOrigenTxt.setText(null);
+            limpiarCamposModelo();
+//Refresco el ComboBox de Modelo
+        modeloComboBox.removeAllItems();
+        cargarComboBoxModelo();
         } else {
-            JOptionPane.showMessageDialog(this, "Ingrese el nombre de la Marca", "Dato vacio", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ingrese el nombre del Modelo", "Dato vacio", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_guardarEditarMarcaBtnActionPerformed
+    }//GEN-LAST:event_modificarModeloBtnActionPerformed
 
     private void guardarAutomovilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarAutomovilBtnActionPerformed
+// Establesco el modelo de la tabla
         DefaultTableModel modeloTablaAutomovil = (DefaultTableModel) automovilTable.getModel();
-        if (!precioReferenciaAutomovilTxt.getText().equals("") && !colorAutomovilTxt.getText().equals("") 
-                && !modeloAutomovilTxt.getText().equals("")) {
-            double precio=Double.parseDouble(precioReferenciaAutomovilTxt.getText());
-            Marca marca= (Marca) marcaComboBox.getSelectedItem();
-            Automovil automovil = new Automovil(marca,precio, colorAutomovilTxt.getText(),
-            Integer.valueOf(modeloAutomovilTxt.getText()),modeloMarcaAutomovilTxt.getText());
+// Pregunto si esten los campos completados necesarios        
+        if (!precioTxt.getText().equals("") && !colorAutomovilTxt.getText().equals("")
+                && !anioTxt.getText().equals("")&& !stockTxt.getText().equals("")&& !kmTxt.getText().equals("")) {
+// Convierte un double y objetos
+            double precio = Double.parseDouble(precioTxt.getText());
+            Modelo modelo = (Modelo) modeloComboBox.getSelectedItem();
+            Automovil automovil = new Automovil(modelo, precio, colorAutomovilTxt.getText(),
+                    Integer.valueOf(anioTxt.getText()),Integer.valueOf(stockTxt.getText()),Integer.valueOf(kmTxt.getText()));
+//Llamo al metodo del controlador de Automovil para guardar
             automovilController.guardarAutomovil(automovil);
+// Limpio la tabla y refresco          
+            DefaultTableModel modeloTablaAutomovilVenta = (DefaultTableModel) automovilVentaTable.getModel();
+            modeloTablaAutomovilVenta.setRowCount(0);
+            cargarAutomovilesVenta();
             modeloTablaAutomovil.setRowCount(0);
             cargarAutomoviles();
+//Limpio los campos
+        limpiarCamposAutomovil();
         } else {
             JOptionPane.showMessageDialog(this, "Llene todos los datos por favor", "Dato incompleto", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_guardarAutomovilBtnActionPerformed
 
-    private void guardarEditarAutomovilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarEditarAutomovilBtnActionPerformed
+    private void modificarAutomovilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarAutomovilBtnActionPerformed
+// Configuro la tabla
         DefaultTableModel modeloTablaAutomovil = (DefaultTableModel) automovilTable.getModel();
-        if (!precioReferenciaAutomovilTxt.getText().equals("") && !colorAutomovilTxt.getText().equals("") 
-                && !modeloAutomovilTxt.getText().equals("") && !modeloMarcaAutomovilTxt.getText().equals("")) {
-            Marca marca= (Marca) marcaComboBox.getSelectedItem();
-            automovilController.editar( automovilTable.getValueAt(automovilTable.getSelectedRow(), 0).toString(),
-                    precioReferenciaAutomovilTxt.getText(), colorAutomovilTxt.getText(),modeloAutomovilTxt.getText()
-                    ,marca.getMarcaid(), modeloMarcaAutomovilTxt.getText());
+// Pregunto si estan completos los campos necesarios
+        if (!precioTxt.getText().equals("") && !colorAutomovilTxt.getText().equals("")
+                && !anioTxt.getText().equals("")&& !stockTxt.getText().equals("")&& !kmTxt.getText().equals("")) {
+// Paso el dato del ComboBox a un objeto Modelo
+            Modelo modelo = (Modelo) modeloComboBox.getSelectedItem();
+// Llamo al metodo de editar
+            automovilController.editar(automovilTable.getValueAt(automovilTable.getSelectedRow(), 0).toString(),
+                    precioTxt.getText(), colorAutomovilTxt.getText(), anioTxt.getText(),
+                     modelo.getModeloid(), kmTxt.getText(),stockTxt.getText());
+//Refresco los datos de la tabla
+            DefaultTableModel modeloTablaAutomovilVenta = (DefaultTableModel) automovilVentaTable.getModel();
+            modeloTablaAutomovilVenta.setRowCount(0);
+            cargarAutomovilesVenta();
             modeloTablaAutomovil.setRowCount(0);
             cargarAutomoviles();
-            inhabilitarBotonesAutomovil();
-            //Limpio los datos
-            precioReferenciaAutomovilTxt.setText(null);
-            colorAutomovilTxt.setText(null);
-            modeloAutomovilTxt.setText(null);
-            modeloMarcaAutomovilTxt.setText(null);
+//Activo la configuracion de la ventana Guardar Auto, apago las opciones de editar
+        activarGuardarAutomovil();            
+//Limpio los campos
+        limpiarCamposAutomovil();
         } else {
             JOptionPane.showMessageDialog(this, "Llene todos los datos por favor", "Dato incompleto", JOptionPane.WARNING_MESSAGE);
         }
-  
-        
-    }//GEN-LAST:event_guardarEditarAutomovilBtnActionPerformed
+    }//GEN-LAST:event_modificarAutomovilBtnActionPerformed
 
-    private void detallesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detallesButtonActionPerformed
-        //Configuracion de la ventana
-        autoDialog.setSize(967, 499);
-        autoDialog.setLocationRelativeTo(null);//lo centra en la pantalla
-        autoDialog.setVisible(true);
-        // Inhabilito los botones
-        inhabilitarBotonesAuto();
-        //Limpio la seleccion de la tabla
-        DefaultTableModel modeloTablaAuto = (DefaultTableModel) autoTable.getModel();
-        modeloTablaAuto.setRowCount(0);
-            cargarAutos();
-    }//GEN-LAST:event_detallesButtonActionPerformed
-
-    private void eliminarAutoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarAutoBtnActionPerformed
+    private void codigoPostalClienteTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoPostalClienteTxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_eliminarAutoBtnActionPerformed
-    
-    private void agregarAutoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarAutoBtnActionPerformed
-        //Limpio datos de los campos
-        autoTable.clearSelection();
-        //Desactivo boton y label de editar
-        guardarEditarAutoBtn.setVisible(false);
-        editarAutoLabel.setVisible(false);
-        // Activo el label y boton de guardar para no generar errores de ingreso o cierre
-        guardarAutoBtn.setVisible(true);
-        guardarNuevoAutoLabel.setVisible(true);
-        inhabilitarBotonesAuto();
-    }//GEN-LAST:event_agregarAutoBtnActionPerformed
+    }//GEN-LAST:event_codigoPostalClienteTxtActionPerformed
 
-    private void autoTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_autoTableMouseClicked
-        // Configuro el modelo de la tabla
-        int filaSelected = autoTable.getSelectedRow();
-        DefaultTableModel modeloTablaAuto = (DefaultTableModel) autoTable.getModel();
+    private void guardarVentaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarVentaBtnActionPerformed
+// Establesco el modelo de la tabla
+        DefaultTableModel tablaVenta = (DefaultTableModel) ventaTable.getModel();
+        DefaultTableModel tablaAutoVenta = (DefaultTableModel) automovilVentaTable.getModel();
+// Pregunto si esten los campos completados necesarios        
+        if (!cuotasTxt.getText().equals("")&&!montoTotalTxt.getText().equals("")
+                &&fechaNacimientoVendedorDate.getDate() != null) {
+// Convierte un double y objetos;
+            Cliente cliente = (Cliente) clienteComboBox.getSelectedItem();
+            Vendedor vendedor = (Vendedor) vendedorComboBox.getSelectedItem();
+            // Convierto variables para la fecha
+            int dia, mes,año;
+            Date conversionadoFechaVenta = null;
+            dia = fechaVentaDateChooser.getCalendar().get(Calendar.DAY_OF_MONTH);
+            mes = fechaVentaDateChooser.getCalendar().get(Calendar.MONTH) + 1;
+            año = fechaVentaDateChooser.getCalendar().get(Calendar.YEAR);
+            String fechaVenta = año + "/" + mes + "/" + dia;
+            try {
+                conversionadoFechaVenta = new SimpleDateFormat("yyyy/MM/dd").parse(fechaVenta);
+            } catch (ParseException ex) {
+                Logger.getLogger(AdministradorView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Venta venta = new Venta(cliente,vendedor,conversionadoFechaVenta,Double.parseDouble(montoTotalTxt.getText()),
+                    Integer.valueOf(cuotasTxt.getText()));
+//Llamo al metodo del controlador de Automovil para guardar
+            ventaController.guardarVenta(venta);
+//Cargo el detalle
+    for (int i = 0; i < tablaAutoVenta.getRowCount(); i++) {
+                if((Boolean) tablaAutoVenta.getValueAt(i, 8) != null &&
+                        (Boolean) tablaAutoVenta.getValueAt(i, 8)== true){
+                    Automovil automovil= new Automovil();
+                    automovil.setAutomovilid(Integer.valueOf(tablaAutoVenta.getValueAt(i, 0).toString()));
+                    DetalleVenta detalleVenta = new DetalleVenta(automovil,venta);
+                    detalleVentaController.guardarDetalleVenta(detalleVenta);
+                } 
+                }
+//Limpio los campos
+        limpiarCamposVenta();
+// Limpio la tabla y refresco            
+            tablaVenta.setRowCount(0);
+            cargarVentas();
+        } else {
+            JOptionPane.showMessageDialog(this, "Llene todos los datos por favor", "Dato incompleto", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_guardarVentaBtnActionPerformed
+
+    private void ventasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventasBtnActionPerformed
+        // Apago paneles
+        clientePanel.setVisible(false);
+        vendedorPanel.setVisible(false);
+        automovilPanel.setVisible(false);
+        // Prendo panel
+        ventaPanel.setVisible(true);
+        //Limpio tablas
+        automovilTable.clearSelection();
+        vendedorTable.clearSelection();
+        clienteTable.clearSelection();
+        //Limpio campos
+        limpiarCamposAutomovil();
+        limpiarCamposVendedor();
+        limpiarCamposCliente();
+        //Activo la configuracion de la ventana Guardar, apago las opciones de editar
+        activarGuardarAutomovil();
+        activarGuardarVendedor();
+        activarGuardarCliente();
+    }//GEN-LAST:event_ventasBtnActionPerformed
+
+    private void limpiarDatosVentaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarDatosVentaBtnActionPerformed
+//Limpio la tabla
+//        ventaTable.clearSelection();
+        ventaDetalleTable.clearSelection();
+        automovilVentaTable.clearSelection();
+//Limpio los campos
+        limpiarCamposVenta();
+//Activo la configuracion de la ventana Guardar Auto, apago las opciones de editar
+        activarGuardarVenta();
+    }//GEN-LAST:event_limpiarDatosVentaBtnActionPerformed
+
+    private void eliminarVentaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarVentaBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminarVentaBtnActionPerformed
+    public double sumar(double precio, double total){
+        total= total+precio;  
+        return total;
+    }
+    private void automovilVentaTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_automovilVentaTableMouseClicked
+// Cargo el monto total de una venta
+        DefaultTableModel tabla = (DefaultTableModel) automovilVentaTable.getModel();
+        double total=0;
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+                if((Boolean) tabla.getValueAt(i, 8) != null && (Boolean) tabla.getValueAt(i, 8)== true){
+                    double precio=Double.parseDouble(tabla.getValueAt(i, 5).toString());
+                    total+=precio;
+                }
+                montoTotalTxt.setText(String.valueOf(total));
+    }//GEN-LAST:event_automovilVentaTableMouseClicked
+    }
+    private void cuotasTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuotasTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cuotasTxtActionPerformed
+
+    private void modificarVentaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarVentaBtnActionPerformed
+// Establesco el modelo de la tabla
+        DefaultTableModel tablaVenta = (DefaultTableModel) ventaTable.getModel();
+        DefaultTableModel tablaAutoVenta = (DefaultTableModel) automovilVentaTable.getModel();
+// Pregunto si esten los campos completados necesarios        
+        if (!cuotasTxt.getText().equals("")&&!montoTotalTxt.getText().equals("")
+                &&fechaNacimientoVendedorDate.getDate() != null) {
+// Convierte un double y objetos;
+            Cliente cliente = (Cliente) clienteComboBox.getSelectedItem();
+            Vendedor vendedor = (Vendedor) vendedorComboBox.getSelectedItem();
+            // Convierto variables para la fecha
+            int dia, mes,año;
+            Date conversionadoFechaVenta = null;
+            dia = fechaVentaDateChooser.getCalendar().get(Calendar.DAY_OF_MONTH);
+            mes = fechaVentaDateChooser.getCalendar().get(Calendar.MONTH) + 1;
+            año = fechaVentaDateChooser.getCalendar().get(Calendar.YEAR);
+            String fechaVenta = año + "/" + mes + "/" + dia;
+            try {
+                conversionadoFechaVenta = new SimpleDateFormat("yyyy/MM/dd").parse(fechaVenta);
+            } catch (ParseException ex) {
+                Logger.getLogger(AdministradorView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Venta venta = new Venta(cliente,vendedor,conversionadoFechaVenta,Double.parseDouble(montoTotalTxt.getText()),
+                    Integer.valueOf(cuotasTxt.getText()));
+//Llamo al metodo del controlador de Automovil para guardar
+            ventaController.guardarVenta(venta);
+//Cargo el detalle
+    for (int i = 0; i < tablaAutoVenta.getRowCount(); i++) {
+                if((Boolean) tablaAutoVenta.getValueAt(i, 8) != null &&
+                        (Boolean) tablaAutoVenta.getValueAt(i, 8)== true){
+                    Automovil automovil= new Automovil();
+                    automovil.setAutomovilid(Integer.valueOf(tablaAutoVenta.getValueAt(i, 0).toString()));
+                    DetalleVenta detalleVenta = new DetalleVenta(automovil,venta);
+                    detalleVentaController.guardarDetalleVenta(detalleVenta);
+                } 
+                }
+//Limpio los campos
+        limpiarCamposVenta();
+// Limpio la tabla y refresco            
+            tablaVenta.setRowCount(0);
+            cargarVentas();
+        } else {
+            JOptionPane.showMessageDialog(this, "Llene todos los datos por favor", "Dato incompleto", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_modificarVentaBtnActionPerformed
+
+    private void ventaTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ventaTableMouseClicked
+// Configuro el modelo de la tabla
+        int filaSelected = ventaTable.getSelectedRow();
+        DefaultTableModel modeloTabla = (DefaultTableModel) ventaTable.getModel();
 // Paso los valores
-        numChasisAutoTxt.setText(modeloTablaAuto.getValueAt(filaSelected, 8).toString());
-        patenteAutoTxt.setText(modeloTablaAuto.getValueAt(filaSelected, 1).toString());
-        precioAutoTxt.setText(modeloTablaAuto.getValueAt(filaSelected, 3).toString());
-        Automovil automovil= new Automovil();
-        Marca marca=new Marca();
-        marca.setNombre(modeloTablaAuto.getValueAt(filaSelected, 2).toString());
-        automovil.setMarca(marca);
-        automovil.setModelomarca(modeloTablaAuto.getValueAt(filaSelected, 5).toString());
-        automovil.setAniofabricacion( Integer.valueOf(modeloTablaAuto.getValueAt(filaSelected, 6).toString()));
-        automovil.setColor(modeloTablaAuto.getValueAt(filaSelected, 7).toString());
-        automovilComboBox.getModel().setSelectedItem(automovil);
-        kmAutoTxt.setText(modeloTablaAuto.getValueAt(filaSelected, 4).toString());
-        // Prendo los botones de tabla
-        guardarEditarAutoBtn.setVisible(true);
-        eliminarAutoBtn.setEnabled(true);
-        //Apago el boton de guardar nueva marca
-        guardarAutoBtn.setVisible(false);
-        //Activo y apago labels
-        guardarNuevoAutoLabel.setVisible(false);
-        editarAutoLabel.setVisible(true);
-    }//GEN-LAST:event_autoTableMouseClicked
-
-    private void guardarEditarAutoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarEditarAutoBtnActionPerformed
-       DefaultTableModel modeloTablaAuto = (DefaultTableModel) autoTable.getModel();
-        if (!numChasisAutoTxt.getText().equals("") && !patenteAutoTxt.getText().equals("") 
-                && !precioAutoTxt.getText().equals("")&& !kmAutoTxt.getText().equals("")) {
-            Automovil automovil= (Automovil) automovilComboBox.getSelectedItem();
-            autoController.editar( autoTable.getValueAt(autoTable.getSelectedRow(), 0).toString(),
-                    Integer.valueOf(numChasisAutoTxt.getText()),
-                    precioAutoTxt.getText(),patenteAutoTxt.getText()
-                    ,automovil.getAutomovilid(), kmAutoTxt.getText());
-            modeloTablaAuto.setRowCount(0);
-            cargarAutos();
-            inhabilitarBotonesAuto();
-            //Limpio los datos
-            precioAutoTxt.setText(null);
-            numChasisAutoTxt.setText(null);
-            patenteAutoTxt.setText(null);
-            kmAutoTxt.setText(null);
-        } else {
-            JOptionPane.showMessageDialog(this, "Llene todos los datos por favor", "Dato incompleto", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_guardarEditarAutoBtnActionPerformed
-
-    private void guardarAutoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarAutoBtnActionPerformed
-        DefaultTableModel modeloTablaAuto = (DefaultTableModel) autoTable.getModel();
-        if (!numChasisAutoTxt.getText().equals("") && !patenteAutoTxt.getText().equals("") 
-                && !precioAutoTxt.getText().equals("")&& !kmAutoTxt.getText().equals("")) {
-            double precio=Double.parseDouble(precioAutoTxt.getText());
-            Automovil automovil= (Automovil) automovilComboBox.getModel().getSelectedItem();
-            Auto auto = new Auto(automovil,Integer.valueOf(numChasisAutoTxt.getText()),patenteAutoTxt.getText(),precio,
-                    kmAutoTxt.getText());
-            autoController.guardarAuto(auto);
-            modeloTablaAuto.setRowCount(0);
-            cargarAutos();
-        } else {
-            JOptionPane.showMessageDialog(this, "Llene todos los datos por favor", "Dato incompleto", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_guardarAutoBtnActionPerformed
-
-    private void numChasisAutoTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numChasisAutoTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_numChasisAutoTxtActionPerformed
-
-    private void automovilComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_automovilComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_automovilComboBoxActionPerformed
-
-    private void autoDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_autoDialogWindowClosing
-        autoTable.clearSelection();
-    }//GEN-LAST:event_autoDialogWindowClosing
-
-    private void cancelarAutoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarAutoButtonActionPerformed
-       //Limpio datos de los campos
-        autoTable.clearSelection();
-    }//GEN-LAST:event_cancelarAutoButtonActionPerformed
+        cuotasTxt.setText(modeloTabla.getValueAt(filaSelected, 5).toString());
+        Cliente cliente = new Cliente();
+        Persona persona=new Persona();
+        persona.setNombre(modeloTabla.getValueAt(filaSelected, 3).toString());
+        persona.setApellido("");
+//        modelo.setModeloid(Long.valueOf(modeloTablaAutomovil.getValueAt(filaSelected, 1).toString()));
+//        modelo.setMarca(modeloTablaAutomovil.getValueAt(filaSelected, 2).toString());
+        cliente.setPersona(persona);
+        clienteComboBox.getModel().setSelectedItem(cliente);
+        
+// Prendo los botones de tabla
+        modificarAutomovilBtn.setEnabled(true);
+        eliminarAutomovilBtn.setEnabled(true);
+        //Apago el boton de guardar nuevo modelo
+        guardarAutomovilBtn.setVisible(false);
+//Activo y apago labels
+        guardarNuevoAutomovilLabel.setVisible(false);
+        editarAutomovilLabel.setVisible(true);
+    }//GEN-LAST:event_ventaTableMouseClicked
 //Metodos de carga de entidades(Listas) Para la tabla
-    private void cargarMarcas() {
-        DefaultTableModel modeloTablaMarca = (DefaultTableModel) marcaTable.getModel();
-        List<Marca> filasTablaMarca = marcaController.listarMarcas();
-        Iterator iterador = filasTablaMarca.iterator();
+
+    private void cargarModelo() {
+        DefaultTableModel modeloTabla = (DefaultTableModel) modeloTable.getModel();
+        List<Modelo> filasTabla = modeloController.listarModelos();
+        Iterator iterador = filasTabla.iterator();
         while (iterador.hasNext()) {
-            Marca marca = (Marca) iterador.next();
-            String fila[] = {String.valueOf(marca.getMarcaid()), marca.getNombre(), marca.getPaisdeorigen()};
+            Modelo modelo = (Modelo) iterador.next();
+            String fila[] = {String.valueOf(modelo.getModeloid()), modelo.getMarca(), modelo.getNombre()};
             /*Armado de Array o Vector para la carga en el modelo de una fila*/
-            modeloTablaMarca.addRow(fila);
+            modeloTabla.addRow(fila);
         }
     }
 
@@ -2212,7 +2244,6 @@ public class AdministradorView extends javax.swing.JPanel {
             modeloTablaCliente.addRow(fila);
         }
     }
-
     private void cargarVendedor() {
         DefaultTableModel modeloTablaVendedor = (DefaultTableModel) vendedorTable.getModel();
         List<Vendedor> filasTablaVendedor = vendedorController.listarVendedor();
@@ -2230,67 +2261,74 @@ public class AdministradorView extends javax.swing.JPanel {
             modeloTablaVendedor.addRow(fila);
         }
     }
+
     private void cargarAutomoviles() {
         DefaultTableModel modeloTablaAutomovil = (DefaultTableModel) automovilTable.getModel();
         List<Automovil> filasTablaAutomovil = automovilController.listarAutomovil();
         Iterator iterador = filasTablaAutomovil.iterator();
         while (iterador.hasNext()) {
             Automovil automovil = (Automovil) iterador.next();
-            String fila[] = {String.valueOf(automovil.getAutomovilid()),
-                String.valueOf(automovil.getPrecioreferencia()), automovil.getColor(),
-                String.valueOf(automovil.getAniofabricacion()),automovil.getMarca().getNombre(),
-                automovil.getModelomarca()
+            String fila[] = {String.valueOf(automovil.getAutomovilid()), 
+                String.valueOf(automovil.getModelo().getModeloid()),
+                automovil.getModelo().getMarca(), automovil.getModelo().getNombre(), 
+                String.valueOf(automovil.getAniofabricacion()),
+                automovil.getColor(), String.valueOf(automovil.getPrecio()),
+                String.valueOf(automovil.getKm()),String.valueOf(automovil.getStock())
             };
             /*Armado de Array o Vector para la carga en el modelo de una fila*/
             modeloTablaAutomovil.addRow(fila);
         }
     }
-    private void cargarAutos() {
-        DefaultTableModel modeloTablaAuto = (DefaultTableModel) autoTable.getModel();
-        List<Auto> filasTablaAuto = autoController.listarAuto();
-        Iterator iterador = filasTablaAuto.iterator();
+    private void cargarAutomovilesVenta() {
+        DefaultTableModel modeloTablaAutomovil = (DefaultTableModel) automovilVentaTable.getModel();
+        List<Automovil> filasTablaAutomovil = automovilController.listarAutomovil();
+        Iterator iterador = filasTablaAutomovil.iterator();
         while (iterador.hasNext()) {
-            Auto auto = (Auto) iterador.next();
-            String fila[] = {String.valueOf(auto.getAutomovil().getAutomovilid()),
-                auto.getPatente(), auto.getAutomovil().getMarca().getNombre(),
-                String.valueOf(auto.getPrecioventa()),
-                auto.getEsCeroKm(),auto.getAutomovil().getModelomarca(),String.valueOf(auto.getAutomovil().getAniofabricacion())
-                    ,auto.getAutomovil().getColor(),String.valueOf(auto.getNumerochasis())
+            Automovil automovil = (Automovil) iterador.next();
+            String fila[] = {String.valueOf(automovil.getAutomovilid()),automovil.getModelo().getMarca(), automovil.getModelo().getNombre(), 
+                String.valueOf(automovil.getAniofabricacion()),
+                automovil.getColor(), String.valueOf(automovil.getPrecio()),
+                String.valueOf(automovil.getKm()),String.valueOf(automovil.getStock())
             };
             /*Armado de Array o Vector para la carga en el modelo de una fila*/
-            modeloTablaAuto.addRow(fila);
+            modeloTablaAutomovil.addRow(fila);
+        }
+    }
+    private void cargarVentas() {
+        DefaultTableModel modeloTablaAutomovil = (DefaultTableModel) ventaTable.getModel();
+        List<Venta> filasTablaAutomovil = ventaController.listarVenta();
+        Iterator iterador = filasTablaAutomovil.iterator();
+        while (iterador.hasNext()) {
+            Venta venta = (Venta) iterador.next();
+            String fila[] = {String.valueOf(venta.getVentaid()),String.valueOf(venta.getFechaventa()), 
+                String.valueOf(venta.getVendedor()), 
+                String.valueOf(venta.getCliente()),String.valueOf(venta.getMontototal()),
+                String.valueOf(venta.getCantcuotas())
+            };
+            /*Armado de Array o Vector para la carga en el modelo de una fila*/
+            modeloTablaAutomovil.addRow(fila);
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton agregarAutoBtn;
-    private javax.swing.JButton agregarAutomovilBtn;
-    private javax.swing.JButton agregarClienteBtn;
-    private javax.swing.JButton agregarMarcaBtn;
     private javax.swing.JLabel agregarNuevoClienteLabel;
     private javax.swing.JLabel agregarNuevoVendedorLabel;
-    private javax.swing.JButton agregarVendedorBtn;
+    private javax.swing.JLabel agregarNuevoVendedorLabel1;
+    private javax.swing.JTextField anioTxt;
     private javax.swing.JTextField apellidoClienteTxt;
     private javax.swing.JLabel apellidoLbl1;
     private javax.swing.JLabel apellidoLbl2;
     private javax.swing.JLabel apellidoLbl3;
-    private javax.swing.JLabel apellidoLbl4;
     private javax.swing.JTextField apellidoVendedorTxt;
-    private javax.swing.JDialog autoDialog;
-    private javax.swing.JTable autoTable;
-    private javax.swing.JComboBox<Automovil> automovilComboBox;
     private javax.swing.JPanel automovilPanel;
     private javax.swing.JTable automovilTable;
+    private javax.swing.JTable automovilVentaTable;
     private javax.swing.JButton autosBtn;
-    private javax.swing.JButton cancelarAgregarNuevoClienteBtn;
-    private javax.swing.JButton cancelarAgregarNuevoVendedorBtn;
-    private javax.swing.JButton cancelarAutoButton;
-    private javax.swing.JButton cerrarSesionButton;
     private javax.swing.JTextField ciudadClienteTxt;
     private javax.swing.JLabel ciudadLbl3;
     private javax.swing.JLabel ciudadLbl4;
     private javax.swing.JTextField ciudadVendedorTxt;
     private javax.swing.JButton clienteBtn;
-    private javax.swing.JDialog clienteDialog;
+    private javax.swing.JComboBox<Cliente> clienteComboBox;
     private javax.swing.JPanel clientePanel;
     private javax.swing.JTable clienteTable;
     private javax.swing.JTextField codigoPostalClienteTxt;
@@ -2298,29 +2336,27 @@ public class AdministradorView extends javax.swing.JPanel {
     private javax.swing.JLabel codpostalbl1;
     private javax.swing.JLabel codpostalbl2;
     private javax.swing.JTextField colorAutomovilTxt;
-    private javax.swing.JButton detallesButton;
+    public javax.swing.JTextField cuotasTxt;
+    private javax.swing.JLabel detalleLabel;
     private javax.swing.JTextField direccionClienteTxt;
     private javax.swing.JLabel direccionLbl3;
     private javax.swing.JLabel direccionLbl4;
     private javax.swing.JLabel direccionLbl5;
-    private javax.swing.JLabel direccionLbl6;
     private javax.swing.JTextField direccionVendedorTxt;
     private javax.swing.JTextField dniClienteTxt;
     private javax.swing.JLabel dniLbl1;
     private javax.swing.JLabel dniLbl2;
     private javax.swing.JTextField dniVendedorTxt;
-    private javax.swing.JLabel editarAutoLabel;
     private javax.swing.JLabel editarAutomovilLabel;
-    private javax.swing.JButton editarClienteBtn;
     private javax.swing.JLabel editarClienteLabel;
-    private javax.swing.JLabel editarMarcaLabel;
-    private javax.swing.JButton editarVendedorBtn;
+    private javax.swing.JLabel editarModeloLabel;
     private javax.swing.JLabel editarVendedorLabel;
-    private javax.swing.JButton eliminarAutoBtn;
+    private javax.swing.JLabel editarVentaLabel;
     private javax.swing.JButton eliminarAutomovilBtn;
     private javax.swing.JButton eliminarClienteBtn;
-    private javax.swing.JButton eliminarMarcaBtn;
+    private javax.swing.JButton eliminarModeloBtn;
     private javax.swing.JButton eliminarVendedorBtn;
+    private javax.swing.JButton eliminarVentaBtn;
     private javax.swing.JTextField emailClienteTxt;
     private javax.swing.JTextField emailVentasTxt;
     private com.toedter.calendar.JDateChooser fechaAltaClienteDate;
@@ -2330,71 +2366,77 @@ public class AdministradorView extends javax.swing.JPanel {
     private javax.swing.JLabel fechaNacimientoLbl3;
     private javax.swing.JLabel fechaNacimientoLbl4;
     private com.toedter.calendar.JDateChooser fechaNacimientoVendedorDate;
-    private javax.swing.JButton guardarAgregarNuevaMarcaBtn;
-    private javax.swing.JButton guardarAgregarNuevoClienteBtn;
-    private javax.swing.JButton guardarAgregarNuevoVendedorBtn;
-    private javax.swing.JButton guardarAutoBtn;
+    private com.toedter.calendar.JDateChooser fechaVentaDateChooser;
     private javax.swing.JButton guardarAutomovilBtn;
-    private javax.swing.JButton guardarEditarAutoBtn;
-    private javax.swing.JButton guardarEditarAutomovilBtn;
-    private javax.swing.JButton guardarEditarClienteBtn;
-    private javax.swing.JButton guardarEditarMarcaBtn;
-    private javax.swing.JButton guardarEditarVendedorBtn;
-    private javax.swing.JLabel guardarNuevaMarcaLabel;
-    private javax.swing.JLabel guardarNuevoAutoLabel;
+    private javax.swing.JButton guardarClienteBtn;
+    private javax.swing.JButton guardarModeloBtn;
     private javax.swing.JLabel guardarNuevoAutomovilLabel;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel guardarNuevoModeloLabel;
+    private javax.swing.JButton guardarVendedorBtn;
+    private javax.swing.JButton guardarVentaBtn;
+    private javax.swing.JLabel guardarVentaLabel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField kmAutoTxt;
+    private javax.swing.JTextField kmTxt;
     private javax.swing.JTextField legajoTxt;
-    private javax.swing.JComboBox<Marca> marcaComboBox;
-    private javax.swing.JPanel marcaPanel;
-    private javax.swing.JTable marcaTable;
-    private javax.swing.JButton marcasABMBtn;
+    private javax.swing.JButton limpiarDatosAutomovilBtn;
+    private javax.swing.JButton limpiarDatosClienteBtn;
+    private javax.swing.JButton limpiarDatosModeloBtn;
+    private javax.swing.JButton limpiarDatosVendedorBtn;
+    private javax.swing.JButton limpiarDatosVentaBtn;
+    private javax.swing.JTextField marcaTxt;
     private javax.swing.JPanel menuPanel;
-    private javax.swing.JTextField modeloAutomovilTxt;
-    private javax.swing.JTextField modeloMarcaAutomovilTxt;
+    private javax.swing.JComboBox<entidades.Modelo> modeloComboBox;
+    private javax.swing.JTable modeloTable;
+    private javax.swing.JButton modificarAutomovilBtn;
+    private javax.swing.JButton modificarClienteBtn;
+    private javax.swing.JButton modificarModeloBtn;
+    private javax.swing.JButton modificarVendedorBtn;
+    private javax.swing.JButton modificarVentaBtn;
+    private javax.swing.JTextField montoTotalTxt;
     private javax.swing.JTextField nombreClienteTxt;
     private javax.swing.JLabel nombreLbl1;
     private javax.swing.JLabel nombreLbl2;
     private javax.swing.JLabel nombreLbl3;
     private javax.swing.JLabel nombreLbl4;
-    private javax.swing.JLabel nombreLbl5;
-    private javax.swing.JTextField nombreMarcaTxt;
+    private javax.swing.JTextField nombreModeloTxt;
     private javax.swing.JTextField nombreVendedorTxt;
-    private javax.swing.JTextField numChasisAutoTxt;
-    private javax.swing.JTextField paisDeOrigenTxt;
-    private javax.swing.JTextField patenteAutoTxt;
-    private javax.swing.JTextField precioAutoTxt;
-    private javax.swing.JTextField precioReferenciaAutomovilTxt;
+    private javax.swing.JTextField precioTxt;
+    private javax.swing.JButton salirButton;
+    private javax.swing.JTextField stockTxt;
     private javax.swing.JTextField telefonoClienteTxt;
     private javax.swing.JLabel telefonoLbl3;
     private javax.swing.JLabel telefonoLbl4;
     private javax.swing.JLabel telefonoLbl5;
-    private javax.swing.JLabel telefonoLbl6;
-    private javax.swing.JLabel telefonoLbl7;
-    private javax.swing.JLabel telefonoLbl8;
     private javax.swing.JTextField telefonoVendedorTxt;
     private javax.swing.JTextField telefonoVentasTxt;
     private javax.swing.JButton vendedorBtn;
-    private javax.swing.JDialog vendedorDialog;
+    private javax.swing.JComboBox<Vendedor> vendedorComboBox;
     private javax.swing.JPanel vendedorPanel;
     private javax.swing.JTable vendedorTable;
+    private javax.swing.JTable ventaDetalleTable;
+    private javax.swing.JPanel ventaPanel;
+    private javax.swing.JTable ventaTable;
     private javax.swing.JButton ventasBtn;
     // End of variables declaration//GEN-END:variables
 }

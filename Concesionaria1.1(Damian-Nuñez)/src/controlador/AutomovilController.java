@@ -6,7 +6,7 @@
 package controlador;
 
 import entidades.Automovil;
-import entidades.Marca;
+import entidades.Modelo;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -42,14 +42,13 @@ public class AutomovilController {
         List<Automovil> listaAutomoviles = sessionAcceso.createCriteria(Automovil.class ).list();
         return listaAutomoviles;
     }
-    public void editar(String automovilid, String precio, String color,String modelo,long marca, String modeloMarca){
+    public void editar(String automovilid, String precio, String color,String anio,long modelo, String km, String stock){
         factoriaSesionesHibernateUtilOLd factoriaUtil = new factoriaSesionesHibernateUtilOLd();
         SessionFactory session = factoriaUtil.getSessionFactory();
         Session sessionAcceso = session.openSession();
         Transaction transaction = sessionAcceso.beginTransaction();
-        Query queryAutomovil= sessionAcceso.createSQLQuery("UPDATE public.automovil SET precioreferencia='"+precio+"',"
-                + " color='"+color+"',"+ " aniofabricacion='"+modelo+"',"+ " marcaid='"+marca+
-                "',"+ " modelomarca='"+modeloMarca+"' WHERE automovilid ="+automovilid);
+        Query queryAutomovil= sessionAcceso.createSQLQuery("UPDATE public.automovil SET precio='"+precio+"',"
+                + " color='"+color+"',"+ " aniofabricacion='"+anio+"',"+ " modelo_id='"+modelo+"',"+ "km='"+km+"',"+ "stock='"+stock+"' WHERE automovilid ="+automovilid);
         queryAutomovil.executeUpdate();
         transaction.commit();
     }

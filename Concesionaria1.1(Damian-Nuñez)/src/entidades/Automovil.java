@@ -27,83 +27,114 @@ public class Automovil  implements java.io.Serializable {
     @Id
     @Column(name="automovilid", unique=true, nullable=false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     private Long automovilid;
+     private int automovilid;
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="marcaid", nullable=false)
-     private Marca marca;
-    @Column(name="precioreferencia", precision=17, scale=17)
-     private Double precioreferencia;
+    @JoinColumn(name="modelo_id", nullable=false)
+     private Modelo modelo;
+    @Column(name="precio", precision=17, scale=17)
+     private Double precio;
     @Column(name="color", length=30)
      private String color;
     @Column(name="aniofabricacion", nullable=false)
      private int aniofabricacion;
-    @Column(name="modelomarca", length=30)
-     private String modelomarca;
+    @Column(name="stock", nullable=false)
+     private int stock;
+    @Column(name="km", nullable=false)
+     private int km;
     @OneToMany(fetch=FetchType.LAZY, mappedBy="automovil")
-     private Set<Auto> autos = new HashSet<Auto>(0);
-
+     private Set<DetalleVenta> ventaDetalle = new HashSet<DetalleVenta>(0);
     public Automovil() {
     }
 
 	
-    public Automovil(Long automovilid, Marca marca, int aniofabricacion) {
+    public Automovil(int automovilid, Modelo modelo, int aniofabricacion) {
         this.automovilid = automovilid;
-        this.marca = marca;
+        this.modelo = modelo;
         this.aniofabricacion = aniofabricacion;
     }
-    public Automovil(Long automovilid, Marca marca, Double precioreferencia, String color, int aniofabricacion, Set<Auto> autos) {
+    public Automovil(int automovilid, Modelo modelo, Double precio, String color, int aniofabricacion) {
        this.automovilid = automovilid;
-       this.marca = marca;
-       this.precioreferencia = precioreferencia;
+       this.modelo = modelo;
+       this.precio = precio;
        this.color = color;
        this.aniofabricacion = aniofabricacion;
-       this.autos = autos;
     }
 
-    public Automovil(Marca marca, Double precioreferencia, String color, int aniofabricacion, String modelomarca) {
-        this.marca = marca;
-        this.precioreferencia = precioreferencia;
+    public Automovil(Modelo modelo, Double precio, String color, int aniofabricacion) {
+        this.modelo = modelo;
+        this.precio = precio;
         this.color = color;
         this.aniofabricacion = aniofabricacion;
-        this.modelomarca = modelomarca;
     }
 
-    
-
-    public String getModelomarca() {
-        return modelomarca;
+    public Automovil(Modelo modelo, Double precio, String color, int aniofabricacion, int stock, int km) {
+        this.modelo = modelo;
+        this.precio = precio;
+        this.color = color;
+        this.aniofabricacion = aniofabricacion;
+        this.stock = stock;
+        this.km = km;
     }
 
-    public void setModelomarca(String modelomarca) {
-        this.modelomarca = modelomarca;
+    public Automovil(int automovilid, Modelo modelo, Double precio, String color, int aniofabricacion, int stock, int km) {
+        this.automovilid = automovilid;
+        this.modelo = modelo;
+        this.precio = precio;
+        this.color = color;
+        this.aniofabricacion = aniofabricacion;
+        this.stock = stock;
+        this.km = km;
     }
-   
-     
-    public Long getAutomovilid() {
+
+    public Set<DetalleVenta> getVentaDetalle() {
+        return ventaDetalle;
+    }
+
+    public void setVentaDetalle(Set<DetalleVenta> ventaDetalle) {
+        this.ventaDetalle = ventaDetalle;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public int getKm() {
+        return km;
+    }
+
+    public void setKm(int km) {
+        this.km = km;
+    }
+  
+    public int getAutomovilid() {
         return this.automovilid;
     }
     
-    public void setAutomovilid(Long automovilid) {
+    public void setAutomovilid(int automovilid) {
         this.automovilid = automovilid;
     }
 
 
-    public Marca getMarca() {
-        return this.marca;
+    public Modelo getModelo() {
+        return this.modelo;
     }
     
-    public void setMarca(Marca marca) {
-        this.marca = marca;
+    public void setModelo(Modelo modelo) {
+        this.modelo = modelo;
     }
 
     
     
-    public Double getPrecioreferencia() {
-        return this.precioreferencia;
+    public Double getPrecio() {
+        return this.precio;
     }
     
-    public void setPrecioreferencia(Double precioreferencia) {
-        this.precioreferencia = precioreferencia;
+    public void setPrecio(Double precio) {
+        this.precio = precio;
     }
 
     
@@ -125,23 +156,6 @@ public class Automovil  implements java.io.Serializable {
     public void setAniofabricacion(int aniofabricacion) {
         this.aniofabricacion = aniofabricacion;
     }
-
-
-    public Set<Auto> getAutos() {
-        return this.autos;
-    }
-    
-    public void setAutos(Set<Auto> autos) {
-        this.autos = autos;
-    }
-
-    @Override
-    public String toString() {
-        return marca + " , " + modelomarca + ", " + aniofabricacion + ", " + color;
-    }
-
-
-
 
 }
 
